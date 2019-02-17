@@ -1,7 +1,9 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,20 +14,30 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.MCManager;
+import model.vo.Pokemon;
 import model.vo.User;
 
 public class CenterView extends JPanel{
    private MainFrame mf;
    private CenterView centerView;
    private Map m;
-   private Image backButtonImage = new ImageIcon("images/back.png").getImage();
+   private Image backButtonImage = new ImageIcon("images/maketViewImages/marketViewBack.png").getImage();
    private JButton backButton = new JButton(new ImageIcon(backButtonImage));
    private MCManager mc;
    private int ans=0;
+   private Image centerBackground = new ImageIcon("images/maketViewImages/centerView.gif").getImage();
+   
+   private User user;
+   
+   private PInfoPage pinfo;
+   
+   private JButton resultYes = new JButton("모두 회복 되었습니다.");
+   private Dialog yes = new Dialog(mf); 
+   
    
    public CenterView(MainFrame mf, JPanel oldPage, User user) {
-	  mc = new MCManager(user);
-	  this.mf=mf;
+     mc = new MCManager(user);
+     this.mf=mf;
       this.centerView=this;
       this.m=(Map)oldPage;
       
@@ -35,37 +47,108 @@ public class CenterView extends JPanel{
       this.setBackground(Color.BLUE);
       
       
+      
       //System.out.println("센터");
       
-      JLabel recover = new JLabel("회복하시겠습니까?");
+      JLabel recover = new JLabel("포켓몬을 회복하시겠습니까?");
       recover.setFont(new Font(getName(),4,30));
-      recover.setBounds(380, 200, 500, 200);
+      recover.setBounds(250, 130, 500, 200);
       this.add(recover);
       
       JButton btnYes = new JButton("예");
-      btnYes.setBounds(400, 400, 100, 50);
+      btnYes.setBounds(400, 600, 100, 50);
       btnYes.setFont(new Font(getName(),3,15));
       this.add(btnYes);
       
       JButton btnNo = new JButton("아니오");
-      btnNo.setBounds(500, 400, 100, 50);
+      btnNo.setBounds(500, 600, 100, 50);
       btnNo.setFont(new Font(getName(),3,15));
       this.add(btnNo);
       
+      
+      Pokemon searchPoke = null;
+      int pokeImgNo = 0;
+      ImageIcon[] pImgList = new ImageIcon[4];
+      JLabel[] userPoke = new JLabel[pImgList.length];
+      int x=210;
+      int y=300;
+      int num=1;
+      for(int i=0 ; i<4 ; i++) {
+         if(user.getUp_list().size()==0) {
+            System.out.println("포켓몬이 없음");
+         }
+         else {
+            
+            //i 로 해놓으면 널포인트 익셉션 뜸....
+            //일단 임의로 0으로 무한 반복 돌림
+            System.out.println(user.getUp_list().get(0));
+            searchPoke = user.getUp_list().get(0);
+            System.out.println(user.getUp_list().get(0).getpNo());
+            pokeImgNo = user.getUp_list().get(0).getpNo();
+            /*searchPoke = user.getUp_list().get(i);
+            pokeImgNo = user.getUp_list().get(i).getpNo();*/
+            pImgList[i] = new ImageIcon("images/userMenuImages/pBook/"+pokeImgNo+".png");
+            userPoke[i] = new JLabel(pImgList[i]);
+             userPoke[i].setBounds(x, y, 200, 300);
+             x+=135;
+             num++;
+             System.out.println("x : "+x);
+             System.out.println("num : "+num);
+             this.add(userPoke[i]);
+            
+         }
+         
+      }
+      
+      /*ImageIcon[] pImgList = new ImageIcon[4];
+      JLabel[] userPoke = new JLabel[pImgList.length];
+      int x=200;
+      int y=300;
+      int num=1;
+      for(int i=0 ; i<4 ; i++) {
+         pImgList[i] = new ImageIcon("images/pokeImg/" + num + "F.gif");
+         userPoke[i] = new JLabel(pImgList[i]);
+         userPoke[i].setBounds(x, y, 200, 300);
+         x+=140;
+         num++;
+         System.out.println("x : "+x);
+         System.out.println("num : "+num);
+         this.add(userPoke[i]);
+         
+         
+      }*/ 
+      
+      //yes.setFont(new Font(getName(),300,500));
+      yes.setBounds(700, 450, 200, 100);
       btnYes.addMouseListener(new MouseAdapter() {
          @Override
          public void mousePressed(MouseEvent e) {
             ans=1;
             mc.useCenter(ans);
             
-            mf.remove(centerView);
+            yes.add(resultYes);         
+            yes.setVisible(true);
             
-            m.setVisible(true);
-            mf.requestFocus();
-            m.setEscCtn(0);
             ans=0;
+            
          }
       });
+      settingButton(resultYes);
+      resultYes.addMouseListener(new MouseAdapter() {
+         @Override
+         public void mouseClicked(MouseEvent e) {
+            //mf.remove(yes);
+            //yes.setVisible(false);
+            yes.dispose();
+            m.setVisible(true);
+              mf.requestFocus();
+              m.setEscCtn(0);
+              mf.remove(centerView);
+              ans=0;
+         }
+      });
+      this.add(resultYes);
+      
       btnNo.addMouseListener(new MouseAdapter() {
          @Override
          public void mousePressed(MouseEvent e) {
@@ -75,6 +158,7 @@ public class CenterView extends JPanel{
             m.setVisible(true);
             mf.requestFocus();
             m.setEscCtn(0);
+            mf.remove(centerView);
             ans=0;
             
             
@@ -82,6 +166,11 @@ public class CenterView extends JPanel{
       });
       
       
+      /*
+      m.setVisible(true);
+      mf.requestFocus();
+      m.setEscCtn(0);
+      mf.remove(centerView);*/
       
       
       
@@ -95,7 +184,10 @@ public class CenterView extends JPanel{
       
       
       
-      backButton.setBounds(920, 600, 70, 50);
+      
+      
+      
+      backButton.setBounds(904, 660, 90, 59);
       settingButton(backButton);
       backButton.setBorderPainted(false);
       backButton.setFocusPainted(false);
@@ -118,16 +210,11 @@ public class CenterView extends JPanel{
          }
       });
       this.add(backButton);
+   }
+   
+   public void paintComponent(Graphics g) {
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
+         g.drawImage(centerBackground, 0, 0, 1024, 729, this);
    }
    public void settingButton(JButton jb) {
          jb.setBorderPainted(false);
