@@ -5,6 +5,8 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import model.dao.PokemonDao;
@@ -13,7 +15,9 @@ import model.vo.Pokemon;
 import model.vo.User;
 import view.BattlePage;
 import view.BattleSkillPage;
+import view.MainFrame;
 import view.PInfoPage;
+import view.UserMenuPage;
 
 public class BattleManager {
 
@@ -28,6 +32,7 @@ public class BattleManager {
 	private int num;
 	private int damage;
 	private BattleSkillPage bsp;
+	private MainFrame mf;
 
 
 
@@ -241,6 +246,7 @@ public class BattleManager {
 		if(user.getUp_list().get(0).getpType() == 0 || (user.getUp_list().get(0).getpType() == user.getEp_list().get(0).getpType())) {
 			user.getEp_list().get(0).setpHp(ep_hp - damage);
 			System.out.println("적hp : " + user.getEp_list().get(0).getpHp());
+			battleEnd(user);
 		} 
 		//내 포켓몬이 불속성
 		else if(user.getUp_list().get(0).getpType() == 1) {
@@ -248,16 +254,19 @@ public class BattleManager {
 			if(user.getEp_list().get(0).getpType() == 0) {
 				user.getEp_list().get(0).setpHp(ep_hp - damage);
 				System.out.println("적hp : " + user.getEp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//상대가 물일 때
 			if(user.getEp_list().get(0).getpType() == 2) {
 				user.getEp_list().get(0).setpHp(ep_hp - (damage)/2);
 				System.out.println("적hp : " + user.getEp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//상대가 풀일 때
 			if(user.getEp_list().get(0).getpType() == 3) {
 				user.getEp_list().get(0).setpHp(ep_hp - (damage)*2);
 				System.out.println("적hp : " + user.getEp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 		}
 		//내 포켓몬이 물속성
@@ -266,16 +275,19 @@ public class BattleManager {
 			if(user.getEp_list().get(0).getpType() == 0) {
 				user.getEp_list().get(0).setpHp(ep_hp - damage);
 				System.out.println("적hp : " + user.getEp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//상대가 불일 때
 			if(user.getEp_list().get(0).getpType() == 1) {
 				user.getEp_list().get(0).setpHp(ep_hp- (damage)*2);
 				System.out.println("적hp : " + user.getEp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//상대가 풀일 때
 			if(user.getEp_list().get(0).getpType() == 3) {
 				user.getEp_list().get(0).setpHp(ep_hp- (damage)/2);
 				System.out.println("적hp : " + user.getEp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 		}
 		//내 포켓몬이 풀속성
@@ -284,16 +296,19 @@ public class BattleManager {
 			if(user.getEp_list().get(0).getpType() == 0) {
 				user.getEp_list().get(0).setpHp(ep_hp - damage);
 				System.out.println("적hp : " + user.getEp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//상대가 불일 때
 			if(user.getEp_list().get(0).getpType() == 1) {
 				user.getEp_list().get(0).setpHp(ep_hp - (damage)/2);
 				System.out.println("적hp : " + user.getEp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//상대가 풀일 때
 			if(user.getEp_list().get(0).getpType() == 3) {
 				user.getEp_list().get(0).setpHp(ep_hp - (damage)*2);
 				System.out.println("적hp : " + user.getEp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 		}      
 
@@ -312,6 +327,7 @@ public class BattleManager {
 		if(user.getEp_list().get(0).getpType() == 0 || (user.getEp_list().get(0).getpType() == user.getUp_list().get(0).getpType())) {
 			user.getUp_list().get(0).setpHp(up_hp - damage);
 			System.out.println("내hp : " + user.getUp_list().get(0).getpHp());
+			battleEnd(user);
 		}
 
 		//랜덤 포켓몬이 불속성
@@ -320,16 +336,19 @@ public class BattleManager {
 			if(user.getUp_list().get(0).getpType() == 0) {
 				user.getUp_list().get(0).setpHp(up_hp - damage);
 				System.out.println("내hp : " + user.getUp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//내가 물일 때
 			if(user.getUp_list().get(0).getpType() == 2) {
 				user.getUp_list().get(0).setpHp(up_hp - (damage)/2);
 				System.out.println("내hp : " + user.getUp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//내가 풀일 때
 			if(user.getUp_list().get(0).getpType() == 3) {
 				user.getUp_list().get(0).setpHp(up_hp - (damage)*2);
 				System.out.println("내hp : " + user.getUp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 		}
 		//랜덤 포켓몬이 물속성
@@ -338,16 +357,19 @@ public class BattleManager {
 			if(user.getUp_list().get(0).getpType() == 0) {
 				user.getUp_list().get(0).setpHp(up_hp - damage);
 				System.out.println("내hp : " + user.getUp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//내가 불일 때
 			if(user.getUp_list().get(0).getpType() == 1) {
 				user.getUp_list().get(0).setpHp(up_hp- (damage)*2);
 				System.out.println("내hp : " + user.getUp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//내가 풀일 때
 			if(user.getUp_list().get(0).getpType() == 3) {
 				user.getUp_list().get(0).setpHp(up_hp- (damage)/2);
 				System.out.println("내hp : " + user.getUp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 		}
 		//랜덤 포켓몬이 풀속성
@@ -356,27 +378,114 @@ public class BattleManager {
 			if(user.getUp_list().get(0).getpType() == 0) {
 				user.getUp_list().get(0).setpHp(up_hp - damage);
 				System.out.println("내hp : " + user.getUp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//내가 불일 때
 			if(user.getUp_list().get(0).getpType() == 1) {
 				user.getUp_list().get(0).setpHp(up_hp - (damage)/2);
 				System.out.println("내hp : " + user.getUp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 			//내가 풀일 때
 			if(user.getUp_list().get(0).getpType() == 3) {
 				user.getUp_list().get(0).setpHp(up_hp - (damage)*2);
 				System.out.println("내hp : " + user.getUp_list().get(0).getpHp());
+				battleEnd(user);
 			}
 		}          
 	}
 
 
+	
+
+	public void changeP(MainFrame mf, JPanel panel, User user, Pokemon poke) {
+		int result = JOptionPane.showConfirmDialog(null, "교체하시겠습니까??", "포켓몬 교체",JOptionPane.YES_NO_OPTION);
+		Pokemon temp;
+		this.bp = bp;
+		this.mf = mf;
+		if(panel instanceof BattlePage) {
+			temp = user.getUp_list().get(0);
+			user.getUp_list().set(0, poke);
+			for(int i=1; i<user.getUp_list().size(); i++) {
+				if(user.getUp_list().get(i).equals(poke)) {
+					user.getUp_list().set(i, temp);
+					pip.setVisible(false);
+					mf.add(panel);
+					panel.setVisible(true);
+				}
+			}
+		}else if(panel instanceof UserMenuPage) {
+			temp = user.getUp_list().get(0);
+			user.getUp_list().set(0, poke);
+			for(int i=1; i<user.getUp_list().size(); i++) {
+				if(user.getUp_list().get(i).equals(poke)) {
+					user.getUp_list().set(i, temp);
+					pip.setVisible(false);
+					mf.add(panel);
+					panel.setVisible(true);
+				}
+			}
+		}
+		showP(pip, user);
+
+	}
+
+	
+	/*public void viewB(JPanel panel, User user) {
+
+		
+		int mNum = user.getUp_list().get(0).getpNo();
+		System.out.println("내포켓몬 이미지 생성");
+		myPIcon = new ImageIcon(("images/userMenuImages/pBook/"+mNum+".png"));
+		myPLabel = new JLabel(myPIcon);
+		myPLabel.setBounds(190, 150, 300, 300);
+		myHP.setBounds(190, 500, 300, 80);
+		this.add(myPLabel);
+		this.add(myHP);
 
 
+		int eNum = user.getEp_list().get(0).getpNo();
+		System.out.println("적포켓몬 이미지 생성");
+		enPIcon = new ImageIcon(("images/userMenuImages/pBook/"+eNum+".png"));
+		enPLabel = new JLabel(enPIcon);
+		enPLabel.setBounds(550, 150, 300, 300);
+		enHP.setBounds(550, 500, 300, 80);
+		this.add(enPLabel);
+		this.add(enHP);
 
 
+	}*/
+
+	 public void battleEnd(User user) {
+	      if(user.getUp_list().get(0).getpHp() <= 0) {
+	         System.out.println("패배!");
+	      }else if(user.getEp_list().get(0).getpHp() <= 0) {
+	         System.out.println("승리! 경험치를 " + user.getEp_list().get(0).getSetExp() + "만큼 얻었습니다!");
+	         user.getUp_list().get(0).setExp(user.getUp_list().get(0).getExp() + user.getEp_list().get(0).getSetExp());
+	         System.out.println("현재경험치 : " + user.getUp_list().get(0).getExp());
+	      }
+	   }
+	 
+	 public void changeBP(MainFrame mf,PInfoPage pip, BattlePage bp, User user) {
 
 
+			this.pip = pip;
+			this.mf = mf;
+			this.bp = bp;
+
+
+			if(user.getUp_list().get(0).getpHp() < 0) {
+				user.getUp_list().get(0).setpHp(0);
+
+				for(int i=1; i<user.getUp_list().size(); i++) {
+					if(user.getUp_list().get(i).getpHp() > 0) {
+						mf.remove(bp);
+						pip.setVisible(true);
+						mf.add(pip);
+					}
+				}
+			}
+		}
 
 	//포켓몬 캐치 기능
 	public void catchP(User user) {
@@ -386,11 +495,10 @@ public class BattleManager {
 
 			}
 		}
-	}
 
-	public void selectS() {
 
 	}
+
 
 
 
