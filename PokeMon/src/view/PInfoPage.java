@@ -37,6 +37,7 @@ public class PInfoPage extends JPanel{
 	private JTextArea[] pInfoText = new JTextArea[4];
 	private JButton backButton = new JButton(new ImageIcon("images/userMenuImages/backButtonBasic.png"));
 
+	
 	public PInfoPage(MainFrame mf, JPanel oldPage, User user) {
 
 		this.mf = mf;
@@ -104,6 +105,70 @@ public class PInfoPage extends JPanel{
 
 			}
 		});
+		
+		
+			pInfo[0].addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					pip.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					pip.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					//선택된 포켓몬 이름
+					bm.changeP(mf,oldPage, user, user.getUp_list().get(0));
+					
+				}
+			});
+			pInfo[1].addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					pip.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					pip.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					bm.changeP(mf,oldPage, user, user.getUp_list().get(1));
+					
+				}
+			});
+			pInfo[2].addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					pip.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					pip.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					bm.changeP(mf,oldPage, user, user.getUp_list().get(2));
+					
+				}
+			});
+			pInfo[3].addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					pip.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					pip.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+					bm.changeP(mf,oldPage, user, user.getUp_list().get(3));
+					
+				}
+			});
+		
 
 
 

@@ -62,6 +62,10 @@ public class UserDao{
 	      user.getUp_list().get(0).setpSkill(skillList);
 	      
 	   userList.add(user);
+	   
+	   user.getUp_list().add(pd.getpList().get(5));
+	   user.getUp_list().add(pd.getpList().get(6));
+	   user.getUp_list().add(pd.getpList().get(7));
    }
    public void saveUser() {
       try(ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream("user.dat",true))){

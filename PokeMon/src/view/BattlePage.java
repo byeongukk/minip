@@ -106,7 +106,7 @@ public class BattlePage extends JPanel {
 
          @Override
          public void mousePressed(MouseEvent e) {
-            bp.setVisible(false);
+        	 bp.setVisible(false);
           //0217-01 mf.add(pip);
             mf.add(new PInfoPage(mf,bp,user)); //0217-01
          }
@@ -217,26 +217,6 @@ public class BattlePage extends JPanel {
       jb.setFocusPainted(false);
       jb.setContentAreaFilled(false);
    }
-	public void viewMyPoke() {
-		int mNum = user.getUp_list().get(0).getpNo();
-		System.out.println("내포켓몬 이미지 생성");
-		myPIcon = new ImageIcon(("images/userMenuImages/pBook/"+mNum+".png"));
-		myPLabel = new JLabel(myPIcon);
-		myPLabel.setBounds(190, 150, 300, 300);
-		myHP.setBounds(190, 500, 300, 80);
-		this.add(myPLabel);
-		this.add(myHP);
-	}
-	public void viewEPoke() {
-		int eNum = user.getEp_list().get(0).getpNo();
-		System.out.println("적포켓몬 이미지 생성");
-		enPIcon = new ImageIcon(("images/userMenuImages/pBook/"+eNum+".png"));
-		enPLabel = new JLabel(enPIcon);
-		enPLabel.setBounds(550, 150, 300, 300);
-		enHP.setBounds(550, 500, 300, 80);
-		this.add(enPLabel);
-		this.add(enHP);
-
-	}
+	
 
 }
