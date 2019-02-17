@@ -80,7 +80,29 @@ public class ItemManager {
 		//useItem(iNo);
 
 	}
-
+	
+	public void subInven(int iNo, int iAmount) {
+		
+		System.out.println("유저 인벤토리 감소 실행");
+		System.out.println("선택한 아이템 번호 : " + iNo + " / 수량 : " + iAmount);
+		Item item = new Item();
+		item = id.getIList().get(iNo);
+		item.setiAmount(iAmount);
+		//유저 아이템리스트 가져오기
+		ArrayList<Item> ui_list = user.getUi_list();
+		
+		for(int i=0; i<ui_list.size();i++) {
+			if(ui_list.get(i).getiNo()==iNo) {
+				ui_list.get(i).setiAmount(ui_list.get(i).getiAmount()-1);
+				if(ui_list.get(i).getiAmount()==0) {
+					//수량이 0개 되면 삭제
+					ui_list.remove(i);
+				}
+				
+			}
+		}
+	}
+	
 	//0217-02
 	public int useItem(int iNo,Pokemon poke) {
 		//0217-02 Item item = id.getIList().get(iNo);
@@ -91,7 +113,7 @@ public class ItemManager {
 		for(int i=0; i<ui_list.size();i++) {
 			if(ui_list.get(i).getiNo()==iNo) {
 				useItem = ui_list.get(i);
-				ui_list.get(i).setiAmount(ui_list.get(i).getiAmount()-1);
+				/*ui_list.get(i).setiAmount(ui_list.get(i).getiAmount()-1);*/
 				if(ui_list.get(i).getiAmount()==0) {
 					//수량이 0개 되면 삭제
 					ui_list.remove(i);
@@ -125,6 +147,7 @@ public class ItemManager {
 			//포켓몬 체력 회복
 			//maxHp보다 낮을때만 사용가능
 			if(poke.getpHp()<poke.getpMaxHp()) {
+				subInven(iNo, useItem.getiAmount());
 				poke.setpHp(poke.getpHp()+((Recovery) useItem).getAmount());
 				//회복후에 현재 체력이 최대 체력보다 높을때 재조정
 				if(poke.getpHp()>poke.getpMaxHp()) {
@@ -157,7 +180,20 @@ public class ItemManager {
 
 		}else if(useItem instanceof Stone) {
 			useItem = (Stone)id.getIList().get(iNo);
-
+			
+			if(((Stone) useItem).getStoneType() == poke.getpType() && poke.ispEvoType() == true) {
+				System.out.println("진화가능");
+				subInven(iNo, useItem.getiAmount());
+				new EvolutionManager(user, poke);
+			}else {
+				if(poke.ispEvoType() == false) {
+					JOptionPane.showMessageDialog(null, "진화의 돌을 사용할 수 있는 포켓몬이 아닙니다.", "에러", JOptionPane.WARNING_MESSAGE);
+				}
+				if(((Stone) useItem).getStoneType() != poke.getpType() && poke.ispEvoType() == true) {
+					JOptionPane.showMessageDialog(null, "진화의 돌과 포켓몬 타입이 맞지 않습니다.", "에러", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+			return ((Stone) useItem).getStoneType();
 		}
 
 		return 0;
