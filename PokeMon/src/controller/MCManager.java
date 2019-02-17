@@ -6,14 +6,14 @@ import model.vo.Pokemon;
 import model.vo.User;
 
 public class MCManager {
-	
-	private String resultNo;
+   
+   private String resultNo;
     private User user;
     private ItemDao id = new ItemDao();
     private PokemonDao pd = new PokemonDao();
     
     public MCManager(User user) {
-    	this.user = user;
+       this.user = user;
     }
    
    public void useMarket(String iName, int iAmount) {
@@ -35,11 +35,11 @@ public class MCManager {
             }else if(user.getuGold() < check){
                resultNo="골드가 부족합니다.";
             }else {
-            	//구매 가능
-            	//decreaseGold = 유저골드차감
-            	im.decreaseGold(check);
-            	//addInven = 유저인벤에 아이템 추가
-            	im.addInven(i, iAmount);
+               //구매 가능
+               //decreaseGold = 유저골드차감
+               im.decreaseGold(check);
+               //addInven = 유저인벤에 아이템 추가
+               im.addInven(i, iAmount);
             }
          }
       }
@@ -54,46 +54,28 @@ public class MCManager {
    }
    
    public void useCenter(int ans) {
-	   //1 = yes / 2 = no
-       //회복 시켜주기
-	   
-	   Pokemon p = new Pokemon();
-	   p = pd.getpList().get(0);
-	   
-	   user.getUp_list().set(0, p);
-	      
-	   for(int i = 0; i < user.getUp_list().size(); i++) {
-	    	  if(user.getUp_list().get(i) == null) {
-	    		  System.out.print(i + " : 빈칸 | ");
-	    	  }else {
-	    		  System.out.print(" " + i + " : " + user.getUp_list().get(i).getpName() + " / "
-	    				  + user.getUp_list().get(i).getpHp() + " |");
-	    		  }
-	   }
-	      
-	   System.out.println("--회복시작--");
-	   
-	   int addHp = 200;
-	   
-	   if(ans == 2) {
-		   System.out.println("센터 나감");
-	   }else {
-		   for(int i = 0; i < user.getUp_list().size(); i++) {
-			   if(user.getUp_list().get(i) != null) {
-				   user.getUp_list().get(i).setpHp(addHp);
-				   System.out.println("회복 끝");
-			   }
-		   }
-	   }
-	   
-	   for(int i = 0; i < user.getUp_list().size(); i++) {
-	    	  if(user.getUp_list().get(i) == null) {
-	    		  System.out.print(i + " : 빈칸 | ");
-	    	  }else {
-	    		  System.out.print(" " + i + " : " + user.getUp_list().get(i).getpName() + " / "
-	    				  + user.getUp_list().get(i).getpHp() + " |");
-	    	  }
-	   }
+      //1 = yes / 2 = no
+       //회복 시켜주기      
+         
+      System.out.println("--회복시작--");
+      
+      int addHp = 200;
+      
+      if(ans == 2) {
+         System.out.println("센터 나감");
+      }else {
+         for(int i = 0; i < user.getUp_list().size(); i++) {
+            if(user.getUp_list().get(i) != null) {
+               System.out.println(user.getUp_list().get(i).getpHp());
+               user.getUp_list().get(i).setpHp(user.getUp_list().get(i).getpMaxHp());
+               System.out.println(user.getUp_list().get(i).getpHp());
+               System.out.println("회복 끝");
+               
+            }
+         }
+      }
+      
+      
    }
 
 }
