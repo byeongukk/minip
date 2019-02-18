@@ -34,12 +34,13 @@ public class RecoveryView extends JPanel{
    private JButton resultYes = new JButton("모두 회복 되었습니다.");
    private Dialog yes = new Dialog(mf); 
    
+   private CenterView centerView;
    
    public RecoveryView(MainFrame mf, JPanel oldPage, User user) {
      mc = new MCManager(user);
      this.mf=mf;
       this.recoveryView=this;
-      this.m=(Map)oldPage;
+      this.centerView = (CenterView)oldPage;
       
       this.setLayout(null);
       this.setBounds(0,0,1024,768);
@@ -121,10 +122,12 @@ public class RecoveryView extends JPanel{
             //mf.remove(yes);
             //yes.setVisible(false);
             yes.dispose();
-            m.setVisible(true);
-              mf.requestFocus();
-              m.setEscCtn(0);
+              
               mf.remove(recoveryView);
+              
+              centerView.setVisible(true);
+              centerView.requestFocus();
+              //m.setEscCtn(0);
               ans=0;
          }
       });
@@ -136,13 +139,15 @@ public class RecoveryView extends JPanel{
             ans=2;
             mc.useRecovery(ans);
             
-            m.setVisible(true);
-            mf.requestFocus();
-            m.setEscCtn(0);
+            
             mf.remove(recoveryView);
+            
+            centerView.setVisible(true);
+            centerView.requestFocus();
+            //((Map)m).start();
+            //m.setEscCtn(0);
+            
             ans=0;
-            
-            
          }
       });
       
@@ -152,21 +157,6 @@ public class RecoveryView extends JPanel{
       mf.requestFocus();
       m.setEscCtn(0);
       mf.remove(centerView);*/
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       
       backButton.setBounds(904, 660, 90, 59);
       settingButton(backButton);
@@ -183,8 +173,8 @@ public class RecoveryView extends JPanel{
          public void mousePressed(MouseEvent e) {
             mf.remove(recoveryView);
             
-            m.setVisible(true);
-            mf.requestFocus();
+            centerView.setVisible(true);
+            centerView.requestFocus();
             //((Map)m).start();
             m.setEscCtn(0);
          }
