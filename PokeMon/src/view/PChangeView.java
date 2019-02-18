@@ -43,7 +43,10 @@ public class PChangeView extends JPanel{
    private Pokemon myPoke;
    
    private JButton error = new JButton("교체할 포켓몬이 없습니다.");
-   private Dialog errorDialog = new Dialog(mf); 
+   private Dialog errorDialog = new Dialog(mf);
+   
+   private JButton changeP = new JButton("교체가 성공적으로 되었습니다.");
+   private Dialog changePDialog = new Dialog(mf); 
    
    public PChangeView(MainFrame mf, JPanel oldPage, User user) {
      mc = new MCManager(user);
@@ -75,7 +78,6 @@ public class PChangeView extends JPanel{
       btnNo.setBounds(500, 600, 100, 50);
       btnNo.setFont(new Font(getName(),3,15));
       this.add(btnNo);
-      
       
       /*//임시
       for(int i=0 ; i<5 ; i++) {
@@ -204,23 +206,26 @@ public class PChangeView extends JPanel{
       this.add(myPImg);
       
       
-      errorDialog.setBounds(660, 450, 230, 100);
       btnYes.addMouseListener(new MouseAdapter() {
          @Override
          public void mousePressed(MouseEvent e) {
             if(myPoke!=null&&totalPoke!=null) {
             	mc.usepChange(myPoke, totalPoke);
+            	changePDialog.setBounds(660, 450, 230, 100);
+            	changePDialog.add(changeP);         
+            	changePDialog.setVisible(true);
             }
             else {
             	try {
             		
+            		errorDialog.setBounds(660, 450, 230, 100);
+            		errorDialog.add(error);         
+            		errorDialog.setVisible(true);
             		System.out.println("웅");
             	}catch(NullPointerException x) {
             		System.out.println("즐");
             	}
             }
-            errorDialog.add(error);         
-            errorDialog.setVisible(true);
             
             
          }
@@ -240,7 +245,24 @@ public class PChangeView extends JPanel{
               //m.setEscCtn(0);
          }
       });
-      this.add(error);
+      this.add(changeP);
+      
+      settingButton(changeP);
+      changeP.addMouseListener(new MouseAdapter() {
+         @Override
+         public void mouseClicked(MouseEvent e) {
+            //mf.remove(yes);
+            //yes.setVisible(false);
+        	 changePDialog.dispose();
+              
+              mf.remove(pChangeView);
+              
+              centerView.setVisible(true);
+              centerView.requestFocus();
+              //m.setEscCtn(0);
+         }
+      });
+      this.add(changeP);
       
       btnNo.addMouseListener(new MouseAdapter() {
          @Override
