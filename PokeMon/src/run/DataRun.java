@@ -9,7 +9,7 @@ public class DataRun {
 
 	public static void main(String[] args) {
 
-		new ItemDao().inputItem();
+		//new ItemDao().inputItem();
 		//new SkillDao().inputSkill();
 		//new UserDao("¿Ã∏ß").saveUser();
 		//new PokemonDao().inputPokemon();

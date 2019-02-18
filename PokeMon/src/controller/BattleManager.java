@@ -25,6 +25,7 @@ public class BattleManager {
 	//0217-03
 	private PInfoPage pip;
 	private BattlePage bp;
+	private JPanel panel;
 	private PokemonDao pd = new PokemonDao();
 	private SkillDao sd = new SkillDao();
 	private Pokemon poke;     //랜덤 포켓몬
@@ -70,6 +71,9 @@ public class BattleManager {
 				grade = "중";
 			}else {
 				grade = "하";
+			}
+			if(up_list.get(i).getpHp() <= 0) {
+				up_list.get(i).setpHp(0);
 			}
 			searchPoke = up_list.get(i);
 			jl[i] = new JLabel();
@@ -249,8 +253,23 @@ public class BattleManager {
 			bp.getM().setVisible(true);
 			bp.getM().setCantMove(false);
 			mf.requestFocus();
+		}else if(user.getUp_list().get(0).getpHp() <=0) {
+			user.getUp_list().get(0).setpHp(0);
+			for(int i=1; i<user.getUp_list().size(); i++) {
+				if(user.getUp_list().get(i).getpHp() > 0) {
+					bp.setVisible(false);
+					bsp.setVisible(false);
+					mf.remove(bp);
+					mf.remove(bsp);
+					pip = new PInfoPage(mf,bp,user);
+					pip.setVisible(true);
+					mf.add(pip);
+					mf.requestFocus();
+					break;
+
+				}
+			}
 		}
-		//changeBP(mf, bp, user);
 
 	}
 
@@ -422,7 +441,11 @@ public class BattleManager {
 	public void changeP(MainFrame mf, JPanel panel, User user, Pokemon poke) {
 		int result = JOptionPane.showConfirmDialog(null, "교체하시겠습니까??", "포켓몬 교체",JOptionPane.YES_NO_OPTION);
 		Pokemon temp;
-		this.bp = bp;
+		if(panel instanceof UserMenuPage) {
+			this.panel = (UserMenuPage) panel;
+		}else if(panel instanceof BattlePage) {
+			this.panel =  (BattlePage) panel;
+		}
 		this.mf = mf;
 		if(panel instanceof BattlePage) {
 			temp = user.getUp_list().get(0);
@@ -451,7 +474,26 @@ public class BattleManager {
 
 	}
 
-	
+	public JPanel changeBP(MainFrame mf,JPanel bp, PInfoPage pip ,User user) {
+		this.panel = (BattlePage) bp;
+		this.pip = pip;
+
+
+			int result = JOptionPane.showConfirmDialog(null, "필드의 포켓몬의 체력이 없습니다 교체하세요", "포켓몬 교체",JOptionPane.YES_NO_OPTION);
+			if(result == 0) {
+				for(int i=1; i<user.getUp_list().size(); i++) {
+					if(user.getUp_list().get(i).getpHp() > 0) {
+						panel.setVisible(false);
+						pip = new PInfoPage(mf,bp,user);
+						pip.setVisible(true);
+						mf.add(pip);
+						break;
+					}
+				}
+			}
+		
+		return panel;
+	}
 
 
 	 public void battleEnd(User user) {
@@ -463,22 +505,6 @@ public class BattleManager {
 	         System.out.println("현재경험치 : " + user.getUp_list().get(0).getExp());
 	      }
 	   }
-	 
-	 public void changeBP(MainFrame mf,JPanel panel, User user) {
-			this.mf = mf;
-			this.bp = (BattlePage) panel;
-
-	if(user.getUp_list().get(0).getpHp() <=0) {
-				for(int i=1; i<user.getUp_list().size(); i++) {
-					if(user.getUp_list().get(i).getpHp() > 0) {
-						mf.remove(bp);
-						mf.add(pip);
-						pip.setVisible(true);
-						JOptionPane.showMessageDialog(null, "포켓몬 체력이 없습니다. 교체하여 주십시오.");
-					}
-				}
-			}
-	 }
 
 	//포켓몬 캐치 기능
 	public void catchP(User user) {
