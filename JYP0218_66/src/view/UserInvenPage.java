@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.BattleManager;
+import controller.ItemManager;
 import model.dao.ItemDao;
 import model.vo.Ball;
 import model.vo.Item;
@@ -109,28 +110,43 @@ public class UserInvenPage extends JPanel {
 			@Override
 			public void mousePressed(java.awt.event.MouseEvent e) {
 				//선택한 아이템이 있을때 다음페이지로 넘어감
-				String userItemName = itemNameList.getSelectedValue()+"";
-
+				String userItemName = null;
+				userItemName = itemNameList.getSelectedValue()+""; //선택한 아이템 리셋
+				System.out.println(userItemName==null);
+				if(userItemName!=null) {
+					uivp.setVisible(false);
+					mf.remove(uivp);
+				}
 				ItemDao iList = new ItemDao();
 				Item checkItem = null;
+				checkItem = new ItemManager(user).itemReturn(userItemName);
 				//아이템 리스트에서 선택아이템 찾아 대입
-				for(int i=0; i<iList.getIList().size(); i++) {
+			/*	for(int i=0; i<iList.getIList().size(); i++) {
 					if(iList.getIList().get(i).getiName().equals(userItemName)) {
 						checkItem = iList.getIList().get(i);
 					}
-				}
+				}*/
 				//유저인벤에서는 볼을 사용 할 수 없음
-
 				if(oldPage instanceof BattlePage) {
 					if(checkItem instanceof Ball) {
-						bm.catchP(user, oldPage, m);
+						if(!(bm.catchP(user, oldPage, m, checkItem))) {
+							System.out.println("못잡았을때");
+							oldPage.setVisible(true);
+						} else {
+							System.out.println("잡았을때");
+							oldPage.setVisible(false);
+							mf.remove(oldPage);
+							m.setVisible(true);
+							m.setCantmove(false);
+						}
 						//uivp.setVisible(false);
-						//mf.add(oldPage);
-						oldPage.setVisible(true);
+						
 					}
 				}else {
 					if(checkItem instanceof Ball) {
 						JOptionPane.showMessageDialog(null, "볼종류는 배틀중에만 사용할 수 있습니다", "에러", JOptionPane.WARNING_MESSAGE);
+						mf.add(uivp);
+						uivp.setVisible(true);
 					} else {
 						for(int i=0; i<itemList.size(); i++) {
 							//선택한 아이템과 소지중인 아이템으로 번호를 받아 메소드 실행
