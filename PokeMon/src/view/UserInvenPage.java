@@ -47,7 +47,7 @@ public class UserInvenPage extends JPanel {
 	
 	private ItemDao id = new ItemDao();
 	
-	public UserInvenPage(MainFrame mf,JPanel oldPage,User user) {
+	public UserInvenPage(MainFrame mf,JPanel oldPage,User user,Map m) {
 		this.mf = mf;
 		this.ump = ump;
 		this.uivp = this;

@@ -161,7 +161,7 @@ public class UserMenuPage extends JPanel {
 				ump.setVisible(false);
 				//0217-01 uivp.setVisible(true);
 				//0217-01 mf.add(uivp);
-				mf.add(new UserInvenPage(mf, ump, user)); //0217-01;
+				mf.add(new UserInvenPage(mf, ump, user,m)); //0217-01;
 			}
 		});
 		this.add(userInvenButton);
