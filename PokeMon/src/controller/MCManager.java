@@ -53,7 +53,7 @@ public class MCManager {
       this.resultNo = resultNo;
    }
    
-   public void useCenter(int ans) {
+   public void useRecovery(int ans) {
       //1 = yes / 2 = no
        //회복 시켜주기      
          

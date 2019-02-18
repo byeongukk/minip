@@ -17,15 +17,15 @@ import controller.MCManager;
 import model.vo.Pokemon;
 import model.vo.User;
 
-public class CenterView extends JPanel{
+public class RecoveryView extends JPanel{
    private MainFrame mf;
-   private CenterView centerView;
+   private RecoveryView recoveryView;
    private Map m;
    private Image backButtonImage = new ImageIcon("images/maketViewImages/marketViewBack.png").getImage();
    private JButton backButton = new JButton(new ImageIcon(backButtonImage));
    private MCManager mc;
    private int ans=0;
-   private Image centerBackground = new ImageIcon("images/maketViewImages/centerView.gif").getImage();
+   private Image recoveryBackground = new ImageIcon("images/maketViewImages/centerView.gif").getImage();
    
    private User user;
    
@@ -35,10 +35,10 @@ public class CenterView extends JPanel{
    private Dialog yes = new Dialog(mf); 
    
    
-   public CenterView(MainFrame mf, JPanel oldPage, User user) {
+   public RecoveryView(MainFrame mf, JPanel oldPage, User user) {
      mc = new MCManager(user);
      this.mf=mf;
-      this.centerView=this;
+      this.recoveryView=this;
       this.m=(Map)oldPage;
       
       this.setLayout(null);
@@ -105,7 +105,7 @@ public class CenterView extends JPanel{
          @Override
          public void mousePressed(MouseEvent e) {
             ans=1;
-            mc.useCenter(ans);
+            mc.useRecovery(ans);
             
             yes.add(resultYes);         
             yes.setVisible(true);
@@ -124,7 +124,7 @@ public class CenterView extends JPanel{
             m.setVisible(true);
               mf.requestFocus();
               m.setEscCtn(0);
-              mf.remove(centerView);
+              mf.remove(recoveryView);
               ans=0;
          }
       });
@@ -134,12 +134,12 @@ public class CenterView extends JPanel{
          @Override
          public void mousePressed(MouseEvent e) {
             ans=2;
-            mc.useCenter(ans);
+            mc.useRecovery(ans);
             
             m.setVisible(true);
             mf.requestFocus();
             m.setEscCtn(0);
-            mf.remove(centerView);
+            mf.remove(recoveryView);
             ans=0;
             
             
@@ -181,7 +181,7 @@ public class CenterView extends JPanel{
          public void mouseExited(MouseEvent e) {}
          @Override
          public void mousePressed(MouseEvent e) {
-            mf.remove(centerView);
+            mf.remove(recoveryView);
             
             m.setVisible(true);
             mf.requestFocus();
@@ -195,7 +195,7 @@ public class CenterView extends JPanel{
    
    public void paintComponent(Graphics g) {
       
-         g.drawImage(centerBackground, 0, 0, 1024, 729, this);
+         g.drawImage(recoveryBackground, 0, 0, 1024, 729, this);
    }
    public void settingButton(JButton jb) {
          jb.setBorderPainted(false);
