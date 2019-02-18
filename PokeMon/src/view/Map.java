@@ -39,7 +39,7 @@ public class Map extends JPanel implements Runnable, KeyListener {
 	private PInfoPage pip;
 	 private UserMenuPage ump; 
 	private MarketView marketView;//SM_추가
-	private RecoveryView recoveryView;
+	private CenterView centerView;
 	private LabPage lp;
 	private int movementSP = 3;
 	private BattleManager bm = new BattleManager();
@@ -122,7 +122,7 @@ public class Map extends JPanel implements Runnable, KeyListener {
 		this.bp = new BattlePage(mf, m,user);   //BattlePage 추가
 
 		this.marketView=new MarketView(mf,m,user);//SM_추가
-		this.recoveryView = new CenterView(mf, m,user);
+		this.centerView = new CenterView(mf, m,user);
 		this.lp = new LabPage(mf, this, user); 
 
 		onOff = true;
@@ -247,8 +247,8 @@ public class Map extends JPanel implements Runnable, KeyListener {
 					y += 50;
 					//this.market = new Market(mf,m);
 					m.setVisible(false);
-					mf.add(recoveryView);
-					recoveryView.setVisible(true);
+					mf.add(centerView);
+					centerView.setVisible(true);
 					dialogOn = false;
 					candial = false;
 					break;
