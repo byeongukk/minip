@@ -67,6 +67,7 @@ public class MCManager {
          for(int i = 0; i < user.getUp_list().size(); i++) {
             if(user.getUp_list().get(i) != null) {
                System.out.println(user.getUp_list().get(i).getpHp());
+               //user.getUp_list().get(i).setpMaxHp(400);
                user.getUp_list().get(i).setpHp(user.getUp_list().get(i).getpMaxHp());
                System.out.println(user.getUp_list().get(i).getpHp());
                System.out.println("È¸º¹ ³¡");

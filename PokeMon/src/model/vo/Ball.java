@@ -10,14 +10,15 @@ public class Ball extends Item {
    
    public Ball() {}
    
-   public Ball(String iName, int iNo, int iPrice, int iType, int iAmount, 
-         int cProb, int cType) {
-      super(iName, iNo, iPrice, iType, iAmount);
-      this.cProb = cProb;
-      this.cType = cType;
-   }
 
-   public int getcProb() {
+   public Ball(String iName, int iNo, int iPrice, int iType, int iAmount, String iInfo, int cProb, int cType) {
+	super(iName, iNo, iPrice, iType, iAmount, iInfo);
+	this.cProb = cProb;
+	this.cType = cType;
+}
+
+
+public int getcProb() {
       return cProb;
    }
 

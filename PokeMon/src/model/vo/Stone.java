@@ -8,8 +8,8 @@ public class Stone extends Item {
    
    public Stone() {}
    
-   public Stone(String iName, int iNo, int iPrice, int iType, int iAmount, int stoneType) {
-      super(iName, iNo, iPrice, iType, iAmount);
+   public Stone(String iName, int iNo, int iPrice, int iType, int iAmount, String iInfo, int stoneType) {
+      super(iName, iNo, iPrice, iType, iAmount, iInfo);
       this.stoneType = stoneType;
    }
 
