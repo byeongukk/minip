@@ -21,6 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import controller.BattleManager;
+import controller.ItemManager;
 import model.dao.ItemDao;
 import model.vo.Ball;
 import model.vo.Item;
@@ -34,19 +36,21 @@ public class UserInvenPage extends JPanel {
 	private BattlePage bp;
 	private UserMenuPage ump;
 	private User user;
-	private JPanel oldPage; 
-	
+	private JPanel oldPage;
+	private Map m;
+	private BattleManager bm = new BattleManager();
+
 	private JButton backButton = new JButton(new ImageIcon(("images/userMenuImages/backButtonBasic.PNG")));
 	private JButton useButton = new JButton(new ImageIcon(("images/userMenuImages/useButton.PNG")));
-	
+
 	//private JButton upButton = new JButton(new ImageIcon(("images/userMenuImages/upButtonBasic.PNG")));
 	//private JButton downButton = new JButton(new ImageIcon(("images/userMenuImages/downButtonBasic.PNG")));
-	
+
 	private JLabel itemInfoLabel = new JLabel();
 	//private JLabel itemListLabel = new JLabel(new ImageIcon(("images/userMenuImages/itemList.PNG")));
-	
+
 	private ItemDao id = new ItemDao();
-	
+
 	public UserInvenPage(MainFrame mf,JPanel oldPage,User user,Map m) {
 		this.mf = mf;
 		this.ump = ump;
@@ -57,52 +61,52 @@ public class UserInvenPage extends JPanel {
 		ArrayList<Item> imgList= (ArrayList<Item>) user.getUi_list();
 		ArrayList<Item> iInfo= (ArrayList<Item>) user.getUi_list();
 
-	      String[] iNameList = new String[itemList.size()];
-	      for(int i=0 ; i<iNameList.length ; i++) {
-	         iNameList[i] = itemList.get(i).getiName();
-	      }
-	      String[] iAmount = new String[itemList.size()];
-	      for(int i=0 ; i<iNameList.length ; i++) {
-	    	  iAmount[i] = itemList.get(i).getiAmount()+"";
-	      }
-	      //아이템정보에 이미지 띄우기---sm
-	      
-	      ImageIcon[] iImgList = new ImageIcon[imgList.size()];
-	      int num = 0;
-	      for(int i=0 ; i<iImgList.length ; i++) {
-	    	  iImgList[i] = new ImageIcon("images/itemImages/i00" + itemList.get(i).getiNo() + ".png");
-	    	  num++;
-	       }
+		String[] iNameList = new String[itemList.size()];
+		for(int i=0 ; i<iNameList.length ; i++) {
+			iNameList[i] = itemList.get(i).getiName();
+		}
+		String[] iAmount = new String[itemList.size()];
+		for(int i=0 ; i<iNameList.length ; i++) {
+			iAmount[i] = itemList.get(i).getiAmount()+"";
+		}
+		//아이템정보에 이미지 띄우기---sm
 
-	      JList itemName = new JList(iNameList);
-	    itemName.setFont(new Font(getName(),Font.BOLD,17));
-	    itemName.setBounds(50, 100, 320, 480);
-	    itemName.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-	    
-	    itemInfoLabel.setBounds(500, 100, 300, 300);
-	    itemInfoLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		ImageIcon[] iImgList = new ImageIcon[imgList.size()];
+		int num = 0;
+		for(int i=0 ; i<iImgList.length ; i++) {
+			iImgList[i] = new ImageIcon("images/itemImages/i00" + itemList.get(i).getiNo() + ".png");
+			num++;
+		}
 
-	    JLabel itemImg = new JLabel();
-	    itemImg.setBounds(630, 130, 50, 50);
-	    
-	    String[] jta = new String[itemList.size()];
-	    JTextField jtaText = new JTextField(290);
-	    
-	    JLabel jl = new JLabel(/*"ㅈ같다 ㅅㅂ"*/);
-	    jl.setBounds(505, 200, 290, 150);
-	    
-	    Item searchItem = null;
-	    
+		JList itemName = new JList(iNameList);
+		itemName.setFont(new Font(getName(),Font.BOLD,17));
+		itemName.setBounds(50, 100, 320, 480);
+		itemName.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
+		itemInfoLabel.setBounds(500, 100, 300, 300);
+		itemInfoLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
+		JLabel itemImg = new JLabel();
+		itemImg.setBounds(630, 130, 50, 50);
+
+		String[] jta = new String[itemList.size()];
+		JTextField jtaText = new JTextField(290);
+
+		JLabel jl = new JLabel(/*"ㅈ같다 ㅅㅂ"*/);
+		jl.setBounds(505, 200, 290, 150);
+
+		Item searchItem = null;
+
 		String grade;
 		int x=100;
 		int y=100;
-		
+
 		for(int i=0; i<itemList.size(); i++) {
 			searchItem = itemList.get(i);
 			//jta[i] = new JTextArea();
 			int iNum = searchItem.getiNo();
 			if(searchItem.getiType() == 0) {
-				
+
 			}
 			jta[i]=itemList.get(i).getiName() + ".\n"
 					+itemList.get(i).getiInfo() + "\n";
@@ -112,41 +116,41 @@ public class UserInvenPage extends JPanel {
 			//jtaText.add(jta[i]);
 			jl = new JLabel(jta[i]);
 		}
-	    
+
 		//jl.add(jtaText);
-	    
-	    itemName.addListSelectionListener(new ListSelectionListener() {
-	         
-	         @Override
-	         public void valueChanged(ListSelectionEvent e) {
-	            itemImg.setIcon(iImgList[itemName.getSelectedIndex()]);
-	            /*jl.add(jta[itemName.getSelectedIndex()]);
+
+		itemName.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				itemImg.setIcon(iImgList[itemName.getSelectedIndex()]);
+				/*jl.add(jta[itemName.getSelectedIndex()]);
 	            jtaText.setText(jta[itemName.getSelectedIndex()]+"");
 	            jtaText.setBounds(520, 200, 250, 150);
 	            jtaText.setEditable(false);
 	            jtaText.setHorizontalAlignment(JTextField.CENTER);
 	            jl.add(jtaText);*/
-	         }
-	      });
-	    itemName.addListSelectionListener(new ListSelectionListener() {
-	         
-	         @Override
-	         public void valueChanged(ListSelectionEvent e) {
-	            jtaText.setText(jta[itemName.getSelectedIndex()]+"");
-	            jtaText.setBounds(505, 200, 290, 150);
-	            jtaText.setEditable(false);
-	            jtaText.setHorizontalAlignment(JTextField.CENTER);
-	         }
-	      });
-	    this.add(jtaText);	    
-	    this.add(jl);
-	    this.add(itemImg);
-	    
+			}
+		});
+		itemName.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				jtaText.setText(jta[itemName.getSelectedIndex()]+"");
+				jtaText.setBounds(505, 200, 290, 150);
+				jtaText.setEditable(false);
+				jtaText.setHorizontalAlignment(JTextField.CENTER);
+			}
+		});
+		this.add(jtaText);	    
+		this.add(jl);
+		this.add(itemImg);
+
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
 		JLabel label = new JLabel();
 		label.setText("가방 페이지");
-		
+
 		mf.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == UserMenuPage.ESC) {
@@ -155,16 +159,16 @@ public class UserInvenPage extends JPanel {
 				}
 			}
 		});
-		
-	    
+
+
 		JList itemAmountList = new JList(iAmount);
 		itemAmountList.setFont(new Font(getName(),Font.BOLD,17));
 		itemAmountList.setBounds(380, 100,50,480);
 		itemAmountList.setEnabled(false);
 		itemAmountList.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-	    
 
-		
+
+
 		useButton.setBounds(500, 450, 300, 150);
 		useButton.setBorderPainted(false);
 		useButton.setFocusPainted(false);
@@ -181,35 +185,54 @@ public class UserInvenPage extends JPanel {
 			@Override
 			public void mousePressed(java.awt.event.MouseEvent e) {
 				//선택한 아이템이 있을때 다음페이지로 넘어감
-				String userItemName = itemName.getSelectedValue()+"";
-				
+				String userItemName = null;
+				userItemName = itemName.getSelectedValue()+""; //선택한 아이템 리셋
+				System.out.println(userItemName==null);
+				if(userItemName!=null) {
+					uivp.setVisible(false);
+					mf.remove(uivp);
+				}
 				ItemDao iList = new ItemDao();
 				Item checkItem = null;
-				//아이템 리스트에서 선택아이템 찾아 대입
-				for(int i=0; i<iList.getIList().size(); i++) {
-					if(iList.getIList().get(i).getiName().equals(userItemName)) {
-						checkItem = iList.getIList().get(i);
-					}
-				}
+				checkItem = new ItemManager(user).itemReturn(userItemName);
+
+
+
 				//유저인벤에서는 볼을 사용 할 수 없음
-				if(checkItem instanceof Ball) {
-					JOptionPane.showMessageDialog(null, "볼종류는 배틀중에만 사용할 수 있습니다", "에러", JOptionPane.WARNING_MESSAGE);
-				} else {
-					for(int i=0; i<itemList.size(); i++) {
-						//선택한 아이템과 소지중인 아이템으로 번호를 받아 메소드 실행
-						if(itemList.get(i).getiName().equals(userItemName)) {
-							uivp.setVisible(false);
-							mf.add(new PInfoPage(mf, uivp, user,userItemName)); //0217-01;
-							/////아이템 사용후 이전페이지로 돌아왔을때 화면 업데이트 문제
+				if(oldPage instanceof BattlePage) {
+					if(checkItem instanceof Ball) {
+						if(!(bm.catchP(user, oldPage, m, checkItem))) {
+							System.out.println("못잡았을때");
+							oldPage.setVisible(true);
+						} else {
+							System.out.println("잡았을때");
+							oldPage.setVisible(false);
+							mf.remove(oldPage);
+							m.setVisible(true);
+							m.setCantmove(false);
+						}
+						//uivp.setVisible(false);
+					}
+				}else {
+					if(checkItem instanceof Ball) {
+						JOptionPane.showMessageDialog(null, "볼종류는 배틀중에만 사용할 수 있습니다", "에러", JOptionPane.WARNING_MESSAGE);
+						mf.add(uivp);
+						uivp.setVisible(true);
+					} else {
+						for(int i=0; i<itemList.size(); i++) {
+							//선택한 아이템과 소지중인 아이템으로 번호를 받아 메소드 실행
+							if(itemList.get(i).getiName().equals(userItemName)) {
+								uivp.setVisible(false);
+								mf.add(new PInfoPage(mf, uivp, user,userItemName)); //0217-01;
+								/////아이템 사용후 이전페이지로 돌아왔을때 화면 업데이트 문제
+							}
 						}
 					}
 				}
-				
-
 			}
 		});
 		this.add(useButton);
-		
+
 		/*upButton.setBounds(200, 20, 95, 95);
 		upButton.setBorderPainted(false);
 		upButton.setFocusPainted(false);
@@ -231,7 +254,7 @@ public class UserInvenPage extends JPanel {
 			}
 		});
 		this.add(upButton);
-	
+
 		downButton.setBounds(200, 600, 95, 95);
 		downButton.setBorderPainted(false);
 		downButton.setFocusPainted(false);
@@ -253,7 +276,7 @@ public class UserInvenPage extends JPanel {
 			}
 		});
 		this.add(downButton);*/
-		
+
 		label.setBounds(450, 20, 200, 40);
 		backButton.setBounds(900, 610, 90, 120);
 		backButton.setBorderPainted(false);
@@ -283,8 +306,10 @@ public class UserInvenPage extends JPanel {
 		this.add(itemInfoLabel);
 		this.add(itemName);
 		this.add(itemAmountList);
-		
+
 		this.add(label);
 	}
+
+
 
 }

@@ -11,11 +11,14 @@ import javax.swing.JTextArea;
 
 import model.dao.PokemonDao;
 import model.dao.SkillDao;
+import model.vo.Ball;
+import model.vo.Item;
 import model.vo.Pokemon;
 import model.vo.User;
 import view.BattlePage;
 import view.BattleSkillPage;
 import view.MainFrame;
+import view.Map;
 import view.PInfoPage;
 import view.UserMenuPage;
 
@@ -34,6 +37,8 @@ public class BattleManager {
 	private int damage;
 	private BattleSkillPage bsp;
 	private MainFrame mf;
+	private Map m;
+	private JPanel oldPage;
 
 
 
@@ -505,20 +510,54 @@ public class BattleManager {
 	         System.out.println("현재경험치 : " + user.getUp_list().get(0).getExp());
 	      }
 	   }
-
-	//포켓몬 캐치 기능
-	public void catchP(User user) {
-
-		for(int i=0; i<user.getUi_list().size(); i++) {
-			if(user.getUi_list().get(i).getiType() == 0) {
-
+	//포켓몬 캐치 기능 //아이템 매개변수 추가
+		public boolean catchP(User user,JPanel oldPage, Map m,Item item) {
+			System.out.println("캐치메소드");
+			System.out.println(oldPage.toString());
+			this.m = m;
+			this.oldPage = oldPage;
+			Ball b = new Ball();
+			int result = JOptionPane.showConfirmDialog(null, "볼을 사용하시겠습니까?", "포켓몬 잡기",JOptionPane.YES_NO_OPTION);
+			int prob = 0;
+			int iNum = 0;
+			if(item instanceof Ball) {
+				prob = ((Ball) item).getcProb();
+				iNum = ((Ball) item).getiNo();
 			}
-		}
-
-
+			
+			//No 누르면 
+			if(result == 1) {
+				oldPage.setVisible(false);
+				
+			}else {
+				for(int i=0; i<user.getUi_list().size(); i++) {
+					if(iNum == user.getUi_list().get(i).getiNo()) {
+						user.getUi_list().get(i).setiAmount(user.getUi_list().get(i).getiAmount() - 1);{
+						}
+					}
+				}
+				
+				
+				int ran = new Random().nextInt(100)+1;
+				Pokemon ePoke;
+				ePoke = user.getEp_list().get(0);
+				System.out.println("랜덤값"+ran);
+				System.out.println("확률값"+prob);
+				if(ran <= prob) {
+					if(user.getUp_list().size() >= 4) {
+						user.getTp_list().add(ePoke);
+						JOptionPane.showMessageDialog(null ,"포켓몬이 박스로 전송됨!", "포켓몬 전송", 0);
+						return true;
+						
+					}else {
+						JOptionPane.showMessageDialog(null ,"포켓몬이 UP에 저장됨!", "포켓몬 전송", 0);
+						return true;
+					}
+				}else {
+					JOptionPane.showMessageDialog(null ,"아쉽다! 잡지 못했다!", "포켓몬 전송", 0);
+					return false;
+				}
+			}
+			return false;
+		} 
 	}
-
-
-
-
-}
