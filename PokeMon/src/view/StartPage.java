@@ -16,6 +16,7 @@ import javax.swing.Timer;
 
 import model.dao.UserDao;
 import model.vo.User;
+import music.Music;
 
 public class StartPage extends JPanel{
 
@@ -41,8 +42,11 @@ public class StartPage extends JPanel{
 		label.setForeground(new Color(255,255,255,255));
 		label.setFont(new Font("돋움체", Font.BOLD, 30));
 		label.setBounds(260, 180, 550, 200);
+		Music m_main = new Music("start.mp3", false);
+		m_main.start();
 		
-		new Timer(15, new ActionListener() {
+		
+		Timer timer = new Timer(15, new ActionListener() {
 			 
 		      public void actionPerformed(ActionEvent e) {
 		        alpha += increment;
@@ -55,8 +59,13 @@ public class StartPage extends JPanel{
 		          increment = -increment;
 		        }
 		        label.setForeground(new Color(0, 0, 0, alpha));
+		        
 		      }
-		    }).start();
+		    });
+		
+		timer.start();
+		
+		
 		
 		JButton startbtn = new JButton("새로 시작");
 		JButton nextPage = new JButton("모험 시작");
@@ -85,19 +94,28 @@ public class StartPage extends JPanel{
 		nextPage.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				 
-				/*FadeOut fade = new FadeOut(mf);
-				mf.add(fade);
-				mf.setComponentZOrder(fade, 0);*/
-				
-
-				UserDao ud = new UserDao("이름이름");
-				//ud.getUserList().get(0).setuGold(500);
+				FadeOut fade = new FadeOut(mf);
+				stp.setVisible(false);
+				mf.remove(stp);
+				fade.fadeout(mf);
+				mf.requestFocus();
+				timer.stop();
+				m_main.close();
+			/*	UserDao ud = new UserDao("이름이름");
+				ud.saveUser();*/
+			//	mf.add(new Map(mf, ud.getUserList().get(0)));
+			/*	UserDao ud = new UserDao("이름이름");
 				ud.saveUser();
+				
+				mf.add(new Map(mf, ud.getUserList().get(0)));*/
+				/*
+				//ud.getUserList().get(0).setuGold(500);
+				
 				stp.setVisible(false);
 				mf.remove(stp);
 				mf.add(new Map(mf, ud.getUserList().get(0)));
 				mf.requestFocus();
-				stp.removeAll();
+				stp.removeAll();*/
 
 			}
 		});
