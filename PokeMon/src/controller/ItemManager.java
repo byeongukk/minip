@@ -210,5 +210,19 @@ public class ItemManager {
 		}
 		return useItem(iNo,poke);
 	}
+	
+	
+	//아이템 이름을 비교하여 리턴
+			public Item itemReturn(String iName) {
+				Item item = null;
+				ArrayList<Item> iList = user.getUi_list();
+				for(int i=0; i<iList.size(); i++) {
+					if(iList.get(i).getiName().equals(iName)) {
+						item = iList.get(i);
+					}
+				}
+				
+				return item;
+			}
 
 }
