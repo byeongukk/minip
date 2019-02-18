@@ -68,8 +68,6 @@ public class CenterView extends JPanel{
 	      this.add(btnPChange);
 	      
 	      
-	      
-	      
 	      btnRecovery.addMouseListener(new MouseAdapter() {
 	         @Override
 	         public void mousePressed(MouseEvent e) {

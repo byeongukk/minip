@@ -18,6 +18,7 @@ import model.vo.Pokemon;
 import model.vo.User;
 
 public class RecoveryView extends JPanel{
+	
    private MainFrame mf;
    private RecoveryView recoveryView;
    private Map m;
@@ -47,9 +48,6 @@ public class RecoveryView extends JPanel{
       
       this.setBackground(Color.BLUE);
       
-      
-      
-      //System.out.println("센터");
       
       JLabel recover = new JLabel("포켓몬을 회복하시겠습니까?");
       recover.setFont(new Font(getName(),4,30));

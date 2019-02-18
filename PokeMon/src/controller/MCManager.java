@@ -151,12 +151,6 @@ public class MCManager {
 	      for(int i = 0; i < user.getTp_list().size(); i++) {
 	          System.out.print(user.getTp_list().get(i).getpName() + " / ");
 	      }*/
-	      
-	      
-	      
-	      
-	      
-	      
    }
 
 }

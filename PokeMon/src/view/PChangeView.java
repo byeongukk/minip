@@ -206,10 +206,6 @@ public class PChangeView extends JPanel{
       
       
       
-      
-      
-      
-      
       errorDialog.setBounds(660, 450, 230, 100);
       btnYes.addMouseListener(new MouseAdapter() {
          @Override
