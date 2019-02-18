@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.dao.ItemDao;
 import model.dao.PokemonDao;
 import model.vo.Pokemon;
@@ -53,13 +55,12 @@ public class MCManager {
       this.resultNo = resultNo;
    }
    
-   public void useCenter(int ans) {
+   public void useRecovery(int ans) {
       //1 = yes / 2 = no
        //회복 시켜주기      
          
       System.out.println("--회복시작--");
       
-      int addHp = 200;
       
       if(ans == 2) {
          System.out.println("센터 나감");
@@ -72,11 +73,83 @@ public class MCManager {
                System.out.println(user.getUp_list().get(i).getpHp());
                System.out.println("회복 끝");
                
+            }else {
+            	System.out.println("잡은 포켓몬이 없습니다.");
             }
          }
       }
-      
-      
+   }
+   public void usepChange(Pokemon myPoke, Pokemon totalPoke) {
+	   //포켓몬 교체 해주는 메소드
+	   Pokemon tempPoke = new Pokemon();
+	   tempPoke=null;
+	   
+	   int noMy=0;
+	   int noTo=0;
+	   for(int i=0 ; i<user.getUp_list().size() ; i++) {
+		   if(user.getUp_list().get(i).getpNo()==myPoke.getpNo()) {
+			   noMy=i;
+			   System.out.println("현재 내 인덱스 : "+noMy);
+		   }
+	   }
+	   for(int i=0; i<user.getTp_list().size() ; i++) {
+		   if(user.getTp_list().get(i).getpNo()==totalPoke.getpNo()){
+			   noTo=i; 
+			   System.out.println("현재 전체 포켓몬 인덱스 : "+noTo);
+		   }
+	   }
+	   System.out.println("바꾸기 전 전체 : "+totalPoke.getpName()); 
+	   System.out.println("바꾸기 전 내꺼 : "+myPoke.getpName());
+	   if(myPoke!=totalPoke) {
+		   tempPoke=myPoke;
+		   user.getUp_list().set(noMy, totalPoke);
+		   user.getTp_list().set(noTo, tempPoke);
+	   }
+	   
+	   System.out.println("바꾸고 전쳬 : "+totalPoke.getpName());
+	   System.out.println("바꾸고 내꺼 : "+myPoke.getpName());
+	   
+	   /*tempPoke=myPoke;
+	   myPoke=totalPoke;
+	   totalPoke=tempPoke;
+	   
+	   System.out.println("바꾸고 전쳬 : "+totalPoke.getpName());
+	   System.out.println("바꾸고 내꺼 : "+myPoke.getpName());*/
+	   
+	   /*
+	   
+	   System.out.println("포켓몬 교체시작");
+	   for(int i=0 ; i<user.getTp_list().size() ; i++) {
+		   user.getTp_list().get(i).getpName();
+		   System.out.println("잡은 포켓몬  :"+user.getTp_list().get(i).getpName());
+		   
+	   }*/
+	   
+	   
+	   /*System.out.println("-----------------교체전");
+	      System.out.println("내 인벤 포켓몬 목록 : ");
+	      for(int i = 0; i < user.getUp_list().size(); i++) {
+	            System.out.print(user.getUp_list().get(i).getpName() + " / ");
+	         }
+	      System.out.println("내 전체 포켓몬 목록 : ");
+	         for(int i = 0; i < user.getTp_list().size(); i++) {
+	            System.out.print(user.getTp_list().get(i).getpName() + " / ");
+	         }
+	         
+	      tempPoke = null;
+	      System.out.println();
+	      System.out.println("교체시작****************");
+	     
+	      System.out.println("-----------------교체후");
+	      System.out.println("내 인벤 포켓몬 목록 : ");
+	      for(int i = 0; i < user.getUp_list().size(); i++) {
+	         
+	         System.out.print(user.getUp_list().get(i).getpName() + " / ");
+	      }
+	      System.out.println("내 전체 포켓몬 목록 : ");
+	      for(int i = 0; i < user.getTp_list().size(); i++) {
+	          System.out.print(user.getTp_list().get(i).getpName() + " / ");
+	      }*/
    }
 
 }
