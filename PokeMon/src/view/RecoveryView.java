@@ -187,7 +187,6 @@ public class RecoveryView extends JPanel{
             mf.requestFocus();
             //((Map)m).start();
             m.setEscCtn(0);
-            
          }
       });
       this.add(backButton);

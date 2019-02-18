@@ -59,7 +59,6 @@ public class MCManager {
          
       System.out.println("--회복시작--");
       
-      int addHp = 200;
       
       if(ans == 2) {
          System.out.println("센터 나감");
