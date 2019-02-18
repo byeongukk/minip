@@ -173,15 +173,15 @@ public class PInfoPage extends JPanel{
 
 
 		label.setBounds(450, 20, 200, 40);
-		pInfo[0].setBounds(180, 30, 300, 160);
-		pInfo[1].setBounds(520, 30, 300, 160);
-		pInfo[2].setBounds(180, 380, 300, 160);
-		pInfo[3].setBounds(520, 380, 300, 160);
+		pInfo[0].setBounds(220, 30, 300, 180);
+		pInfo[1].setBounds(560, 30, 300, 180);
+		pInfo[2].setBounds(220, 360, 300, 180);
+		pInfo[3].setBounds(560, 360, 300, 180);
 
-		pInfoText[0].setBounds(180,220,300,130);
-		pInfoText[1].setBounds(520,220,300,130);
-		pInfoText[2].setBounds(180,570,300,130);
-		pInfoText[3].setBounds(520,570,300,130);
+		pInfoText[0].setBounds(180,220,280,130);
+		pInfoText[1].setBounds(520,220,280,130);
+		pInfoText[2].setBounds(180,535,280,130);
+		pInfoText[3].setBounds(520,535,280,130);
 
 		pip.add(label);
 

@@ -28,7 +28,7 @@ import controller.BattleManager;
 import model.vo.User;
 
 
-class Map extends JPanel implements Runnable, KeyListener {
+public class Map extends JPanel implements Runnable, KeyListener {
 
 	int port = 8600;
 
@@ -55,6 +55,14 @@ class Map extends JPanel implements Runnable, KeyListener {
 	private boolean playerMove = false;
 	private boolean sprint = false;
 	private boolean cantmove = false;
+	public boolean isCantmove() {
+		return cantmove;
+	}
+
+	public void setCantmove(boolean cantmove) {
+		this.cantmove = cantmove;
+	}
+
 	private boolean dialogOn = false;
 	private boolean candial = false;
 
@@ -703,8 +711,7 @@ class Map extends JPanel implements Runnable, KeyListener {
 					mf.add(bp);
 					m.setVisible(false);
 					//이미지가 늦게뜨는점 고치도록 해야함
-					bp.viewMyPoke();
-					bp.viewEPoke();
+					
 					bp.setVisible(true);
 
 				}

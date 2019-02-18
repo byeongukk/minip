@@ -9,10 +9,10 @@ public class DataRun {
 
 	public static void main(String[] args) {
 
-/*		new ItemDao().inputItem();
-		new SkillDao().inputSkill();
-		new UserDao("이름").saveUser();*/
-		new PokemonDao().inputPokemon();
+		new ItemDao().inputItem();
+		//new SkillDao().inputSkill();
+		//new UserDao("이름").saveUser();
+		//new PokemonDao().inputPokemon();
 		
 	}
 
