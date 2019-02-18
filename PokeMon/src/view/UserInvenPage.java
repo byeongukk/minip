@@ -16,10 +16,15 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import model.dao.ItemDao;
 import model.vo.Ball;
 import model.vo.Item;
+import model.vo.Pokemon;
 import model.vo.User;
 
 public class UserInvenPage extends JPanel {
@@ -34,11 +39,13 @@ public class UserInvenPage extends JPanel {
 	private JButton backButton = new JButton(new ImageIcon(("images/userMenuImages/backButtonBasic.PNG")));
 	private JButton useButton = new JButton(new ImageIcon(("images/userMenuImages/useButton.PNG")));
 	
-	private JButton upButton = new JButton(new ImageIcon(("images/userMenuImages/upButtonBasic.PNG")));
-	private JButton downButton = new JButton(new ImageIcon(("images/userMenuImages/downButtonBasic.PNG")));
+	//private JButton upButton = new JButton(new ImageIcon(("images/userMenuImages/upButtonBasic.PNG")));
+	//private JButton downButton = new JButton(new ImageIcon(("images/userMenuImages/downButtonBasic.PNG")));
 	
-	private JLabel itemInfoLabel = new JLabel(new ImageIcon(("images/userMenuImages/itemInfo.PNG")));
+	private JLabel itemInfoLabel = new JLabel();
 	//private JLabel itemListLabel = new JLabel(new ImageIcon(("images/userMenuImages/itemList.PNG")));
+	
+	private ItemDao id = new ItemDao();
 	
 	public UserInvenPage(MainFrame mf,JPanel oldPage,User user) {
 		this.mf = mf;
@@ -47,6 +54,8 @@ public class UserInvenPage extends JPanel {
 		this.user = user;
 		this.oldPage = oldPage; // JPanel로 받아 userMenuPage, BattlePage를 받을수 있음
 		ArrayList<Item> itemList= (ArrayList<Item>) user.getUi_list();
+		ArrayList<Item> imgList= (ArrayList<Item>) user.getUi_list();
+		ArrayList<Item> iInfo= (ArrayList<Item>) user.getUi_list();
 
 	      String[] iNameList = new String[itemList.size()];
 	      for(int i=0 ; i<iNameList.length ; i++) {
@@ -56,8 +65,82 @@ public class UserInvenPage extends JPanel {
 	      for(int i=0 ; i<iNameList.length ; i++) {
 	    	  iAmount[i] = itemList.get(i).getiAmount()+"";
 	      }
-	    
+	      //아이템정보에 이미지 띄우기---sm
+	      
+	      ImageIcon[] iImgList = new ImageIcon[imgList.size()];
+	      int num = 0;
+	      for(int i=0 ; i<iImgList.length ; i++) {
+	    	  iImgList[i] = new ImageIcon("images/itemImages/i00" + itemList.get(i).getiNo() + ".png");
+	    	  num++;
+	       }
 
+	      JList itemName = new JList(iNameList);
+	    itemName.setFont(new Font(getName(),Font.BOLD,17));
+	    itemName.setBounds(50, 100, 320, 480);
+	    itemName.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+	    
+	    itemInfoLabel.setBounds(500, 100, 300, 300);
+	    itemInfoLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
+	    JLabel itemImg = new JLabel();
+	    itemImg.setBounds(630, 130, 50, 50);
+	    
+	    String[] jta = new String[itemList.size()];
+	    JTextField jtaText = new JTextField(290);
+	    
+	    JLabel jl = new JLabel(/*"ㅈ같다 ㅅㅂ"*/);
+	    jl.setBounds(505, 200, 290, 150);
+	    
+	    Item searchItem = null;
+	    
+		String grade;
+		int x=100;
+		int y=100;
+		
+		for(int i=0; i<itemList.size(); i++) {
+			searchItem = itemList.get(i);
+			//jta[i] = new JTextArea();
+			int iNum = searchItem.getiNo();
+			if(searchItem.getiType() == 0) {
+				
+			}
+			jta[i]=itemList.get(i).getiName() + ".\n"
+					+itemList.get(i).getiInfo() + "\n";
+			//jta[i].setEditable(false);
+			//jta[i].setBounds(520, 200, 250, 150);
+			//this.add(jta[i]);
+			//jtaText.add(jta[i]);
+			jl = new JLabel(jta[i]);
+		}
+	    
+		//jl.add(jtaText);
+	    
+	    itemName.addListSelectionListener(new ListSelectionListener() {
+	         
+	         @Override
+	         public void valueChanged(ListSelectionEvent e) {
+	            itemImg.setIcon(iImgList[itemName.getSelectedIndex()]);
+	            /*jl.add(jta[itemName.getSelectedIndex()]);
+	            jtaText.setText(jta[itemName.getSelectedIndex()]+"");
+	            jtaText.setBounds(520, 200, 250, 150);
+	            jtaText.setEditable(false);
+	            jtaText.setHorizontalAlignment(JTextField.CENTER);
+	            jl.add(jtaText);*/
+	         }
+	      });
+	    itemName.addListSelectionListener(new ListSelectionListener() {
+	         
+	         @Override
+	         public void valueChanged(ListSelectionEvent e) {
+	            jtaText.setText(jta[itemName.getSelectedIndex()]+"");
+	            jtaText.setBounds(505, 200, 290, 150);
+	            jtaText.setEditable(false);
+	            jtaText.setHorizontalAlignment(JTextField.CENTER);
+	         }
+	      });
+	    this.add(jtaText);	    
+	    this.add(jl);
+	    this.add(itemImg);
 	    
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
@@ -73,12 +156,6 @@ public class UserInvenPage extends JPanel {
 			}
 		});
 		
-		itemInfoLabel.setBounds(500, 100, 300, 300);
-		//itemListLabel.setBounds(100,30,400,650);
-	    JList itemNameList = new JList(iNameList);
-	    itemNameList.setFont(new Font(getName(),Font.BOLD,17));
-	    itemNameList.setBounds(50, 100, 320, 480);
-	    itemNameList.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 	    
 		JList itemAmountList = new JList(iAmount);
 		itemAmountList.setFont(new Font(getName(),Font.BOLD,17));
@@ -104,7 +181,7 @@ public class UserInvenPage extends JPanel {
 			@Override
 			public void mousePressed(java.awt.event.MouseEvent e) {
 				//선택한 아이템이 있을때 다음페이지로 넘어감
-				String userItemName = itemNameList.getSelectedValue()+"";
+				String userItemName = itemName.getSelectedValue()+"";
 				
 				ItemDao iList = new ItemDao();
 				Item checkItem = null;
@@ -133,7 +210,7 @@ public class UserInvenPage extends JPanel {
 		});
 		this.add(useButton);
 		
-		upButton.setBounds(200, 20, 95, 95);
+		/*upButton.setBounds(200, 20, 95, 95);
 		upButton.setBorderPainted(false);
 		upButton.setFocusPainted(false);
 		upButton.setContentAreaFilled(false);
@@ -175,7 +252,7 @@ public class UserInvenPage extends JPanel {
 				//클릭시 이벤트
 			}
 		});
-		this.add(downButton);
+		this.add(downButton);*/
 		
 		label.setBounds(450, 20, 200, 40);
 		backButton.setBounds(900, 610, 90, 120);
@@ -204,7 +281,7 @@ public class UserInvenPage extends JPanel {
 		});
 		this.add(backButton);
 		this.add(itemInfoLabel);
-		this.add(itemNameList);
+		this.add(itemName);
 		this.add(itemAmountList);
 		
 		this.add(label);

@@ -70,7 +70,7 @@ public class CenterView extends JPanel{
       int pokeImgNo = 0;
       ImageIcon[] pImgList = new ImageIcon[4];
       JLabel[] userPoke = new JLabel[pImgList.length];
-      int x=210;
+      int x=215;
       int y=300;
       int num=1;
       for(int i=0 ; i<4 ; i++) {
@@ -81,16 +81,16 @@ public class CenterView extends JPanel{
             
             //i 로 해놓으면 널포인트 익셉션 뜸....
             //일단 임의로 0으로 무한 반복 돌림
-            System.out.println(user.getUp_list().get(0));
+            /*System.out.println(user.getUp_list().get(0));
             searchPoke = user.getUp_list().get(0);
             System.out.println(user.getUp_list().get(0).getpNo());
-            pokeImgNo = user.getUp_list().get(0).getpNo();
-            /*searchPoke = user.getUp_list().get(i);
-            pokeImgNo = user.getUp_list().get(i).getpNo();*/
-            pImgList[i] = new ImageIcon("images/userMenuImages/pBook/"+pokeImgNo+".png");
+            pokeImgNo = user.getUp_list().get(0).getpNo();*/
+            searchPoke = user.getUp_list().get(i);
+            pokeImgNo = user.getUp_list().get(i).getpNo();
+            pImgList[i] = new ImageIcon("images/poke/"+pokeImgNo+"F.gif");
             userPoke[i] = new JLabel(pImgList[i]);
-             userPoke[i].setBounds(x, y, 200, 300);
-             x+=135;
+             userPoke[i].setBounds(x, y, 175, 300);
+             x+=148;
              num++;
              System.out.println("x : "+x);
              System.out.println("num : "+num);
@@ -100,25 +100,6 @@ public class CenterView extends JPanel{
          
       }
       
-      /*ImageIcon[] pImgList = new ImageIcon[4];
-      JLabel[] userPoke = new JLabel[pImgList.length];
-      int x=200;
-      int y=300;
-      int num=1;
-      for(int i=0 ; i<4 ; i++) {
-         pImgList[i] = new ImageIcon("images/pokeImg/" + num + "F.gif");
-         userPoke[i] = new JLabel(pImgList[i]);
-         userPoke[i].setBounds(x, y, 200, 300);
-         x+=140;
-         num++;
-         System.out.println("x : "+x);
-         System.out.println("num : "+num);
-         this.add(userPoke[i]);
-         
-         
-      }*/ 
-      
-      //yes.setFont(new Font(getName(),300,500));
       yes.setBounds(700, 450, 200, 100);
       btnYes.addMouseListener(new MouseAdapter() {
          @Override
