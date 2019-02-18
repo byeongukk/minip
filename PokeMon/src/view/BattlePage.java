@@ -104,12 +104,21 @@ public void setM(Map m) {
          @Override
          public void mousePressed(MouseEvent e) {
         	 //0217-03 싸우기 버튼 클릭시 배틀스킬페이지 생성후 넘김
-        	BattleSkillPage bsp = new BattleSkillPage(mf, bp,user);
-        	bm.showS(bsp,user);
-            bp.setVisible(false);
-          //0217-01  bsp.setVisible(true);
-          //0217-01  mf.add(bsp);
-            mf.add(bsp); //0217-01
+        	 if(user.getUp_list().get(0).getpHp() <= 0) {
+         		JPanel panel = bm.changeBP(mf, bp, pip, user);
+         		panel.setVisible(true);
+         		mf.add(panel);
+         		
+         	}else if(user.getUp_list().get(0).getpHp() >0){
+         		
+         		bsp = new BattleSkillPage(mf, bp,user);
+         		mf.add(bsp);
+         		bm.showS(bsp,user);
+         		bp.setVisible(false);
+         	}
+         	
+         	
+         	bp.setVisible(false);
             
          }
       });
@@ -140,7 +149,7 @@ public void setM(Map m) {
             bp.setVisible(false);
           //0217-01 uivp.setVisible(true);   
           //0217-01 mf.add(uivp);
-            mf.add(new UserInvenPage(mf, bp, user)); //0217-01
+            mf.add(new UserInvenPage(mf, bp, user,m)); //0217-01
             
          }
       });
