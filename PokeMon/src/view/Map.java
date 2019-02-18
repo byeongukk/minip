@@ -39,6 +39,7 @@ public class Map extends JPanel implements Runnable, KeyListener {
 	 private UserMenuPage ump; 
 	private MarketView marketView;//SM_추가
 	private CenterView centerView;
+	private LabPage lp;
 	private int movementSP = 3;
 	private BattleManager bm = new BattleManager();
 	private StartPage stp;
@@ -100,6 +101,7 @@ public class Map extends JPanel implements Runnable, KeyListener {
 	private boolean onOff;
 	private int centernum;
 	private int oh;
+	private int ohOn;
 	
 
 
@@ -262,14 +264,17 @@ public class Map extends JPanel implements Runnable, KeyListener {
 				switch(oh) {
 				case 1 :{
 					escCtn=1;
-					System.out.println("상점 이용");
+					System.out.println("스타팅 포켓몬");
 					y += 50;
 					//this.market = new Market(mf,m);
+					if(ohOn == 0) {
 					m.setVisible(false);
-					mf.add(marketView);
-					marketView.setVisible(true);
+					mf.add(lp);
+					lp.setVisible(true);
 					dialogOn = false;
 					candial = false;
+					ohOn = 1;
+					}
 					break;
 				}
 				}
