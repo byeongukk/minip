@@ -80,8 +80,6 @@ public class CenterView extends JPanel{
 	            mf.add(rv);
 	            rv.setVisible(true);
 	            
-	            
-	            
 	         }
 	      });
 	      

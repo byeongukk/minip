@@ -48,7 +48,6 @@ public class RecoveryView extends JPanel{
       
       this.setBackground(Color.BLUE);
       
-      
       JLabel recover = new JLabel("포켓몬을 회복하시겠습니까?");
       recover.setFont(new Font(getName(),4,30));
       recover.setBounds(250, 130, 500, 200);
@@ -96,7 +95,6 @@ public class RecoveryView extends JPanel{
              this.add(userPoke[i]);
             
          }
-         
       }
       
       yes.setBounds(700, 450, 200, 100);

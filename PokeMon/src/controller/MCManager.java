@@ -116,7 +116,6 @@ public class MCManager {
 	   System.out.println("바꾸고 전쳬 : "+totalPoke.getpName());
 	   System.out.println("바꾸고 내꺼 : "+myPoke.getpName());*/
 	   
-	   
 	   /*
 	   
 	   System.out.println("포켓몬 교체시작");
