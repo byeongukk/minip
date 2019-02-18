@@ -116,7 +116,7 @@ public class BattleSkillPage extends JPanel implements KeyListener {
 		public void mousePressed(java.awt.event.MouseEvent e) {
 			//임시
 			String text = skill1b.getText();
-			bm.battle(user,text);
+			bm.battle(mf,bp,(BattleSkillPage) bsp,user,text);
 			mf.remove(bsp);
 			bp.setVisible(true);
 			mf.requestFocus();
@@ -139,7 +139,7 @@ public class BattleSkillPage extends JPanel implements KeyListener {
 			public void mousePressed(java.awt.event.MouseEvent e) {
 				//임시
 				String text = skill2b.getText();
-				bm.battle(user,text);
+				bm.battle(mf,bp,(BattleSkillPage) bsp,user,text);
 				mf.remove(bsp);
 				bp.setVisible(true);
 				mf.requestFocus();
@@ -161,7 +161,7 @@ public class BattleSkillPage extends JPanel implements KeyListener {
 			public void mousePressed(java.awt.event.MouseEvent e) {
 				//임시
 				String text = skill3b.getText();
-				bm.battle(user,text);
+				bm.battle(mf,bp,(BattleSkillPage) bsp,user,text);
 				mf.remove(bsp);
 				bp.setVisible(true);
 				mf.requestFocus();
@@ -183,7 +183,7 @@ public class BattleSkillPage extends JPanel implements KeyListener {
 			public void mousePressed(java.awt.event.MouseEvent e) {
 				//임시
 				String text = skill4b.getText();
-				bm.battle(user,text);
+				bm.battle(mf,bp,(BattleSkillPage) bsp,user,text);
 				mf.remove(bsp);
 				bp.setVisible(true);
 				mf.requestFocus();

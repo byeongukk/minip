@@ -64,8 +64,15 @@ public class UserDao{
 	   userList.add(user);
 	   
 	   user.getUp_list().add(pd.getpList().get(5));
+	   user.getUp_list().get(1).setpHp(30);
+	   user.getUp_list().get(1).setGrade(2);
 	   user.getUp_list().add(pd.getpList().get(6));
 	   user.getUp_list().add(pd.getpList().get(7));
+	   
+	   user.getUp_list().get(1).getpSkill().add(sd.getsList().get(0));
+	   user.getUp_list().get(1).getpSkill().add(sd.getsList().get(1));
+	   user.getUp_list().get(1).getpSkill().add(sd.getsList().get(2));
+	   user.getUp_list().get(1).getpSkill().add(sd.getsList().get(3));
    }
    public void saveUser() {
       try(ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream("user.dat",true))){

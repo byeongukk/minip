@@ -58,17 +58,33 @@ public class BattlePage extends JPanel {
    private JButton invenButton = new JButton(new ImageIcon(invenButtonImage));
    private JButton runButton = new JButton(new ImageIcon(runButtonImage));
 
-   //Graphics
-   //전투 배경 이미지
-   Image background = Toolkit.getDefaultToolkit().getImage("images/background1.PNG");
-   //내 포켓몬 이미지
-   Image mypokemon = Toolkit.getDefaultToolkit().getImage("images/pikachu.PNG");
-   //적 포켓몬 이미지
-   Image enpokemon =  Toolkit.getDefaultToolkit().getImage("images/kkobugi.PNG");
+   private int mpnum;
+   private int epnum;
 
+
+
+
+public Map getM() {
+	return m;
+}
+
+
+public void setM(Map m) {
+	this.m = m;
+}
+
+
+//Graphics
+   //전투 배경 이미지
+   Image background = Toolkit.getDefaultToolkit().getImage("images/battleViewImg/battleview.png");
+   Image mground = Toolkit.getDefaultToolkit().getImage("images/battleViewImg/풀필드1.png");
+   Image eground = Toolkit.getDefaultToolkit().getImage("images/battleViewImg/풀필드2.png");
+  
 
    public BattlePage(MainFrame mf, JPanel panel, User user) {
-	  this.bp = this;
+	
+	   this.setSize(1024,768);
+	   this.bp = this;
       this.mf = mf;
       this.m = (Map)panel;
       //0217-01 this.pip = new PInfoPage(mf,this,user);
@@ -206,9 +222,18 @@ public class BattlePage extends JPanel {
 
    //라벨 대신 배경, 포켓몬 불러오는 그래픽스
    public void paintComponent(Graphics g) {
-      g.drawImage(background, 0, 0, 1024, 768, this);
-      g.drawImage(mypokemon, 210, 150, 250, 250, this);
-      g.drawImage(enpokemon, 570, 150, 250, 250, this);
+      g.drawImage(background, 0, 0, 1012, 729, this);
+      g.drawImage(mground, 150, 321, 280, 100, this);
+      g.drawImage(eground, 670, 90, 250, 100, this);
+      if(this.isVisible()) {
+    	  mpnum = user.getUp_list().get(0).getpNo();
+    	  Image mypokemon = Toolkit.getDefaultToolkit().getImage("images/poke/"+mpnum+"B.gif");
+    	  g.drawImage(mypokemon, 235, 321, 90, 90, this);
+    	  epnum = user.getEp_list().get(0).getpNo();
+    	  Image enpokemon = Toolkit.getDefaultToolkit().getImage("images/poke/"+epnum+"F.gif");
+          g.drawImage(enpokemon, 740, 60, 100, 100, this);
+      }
+      
    }
 
 
@@ -217,6 +242,7 @@ public class BattlePage extends JPanel {
       jb.setFocusPainted(false);
       jb.setContentAreaFilled(false);
    }
-	
+   
+   
 
 }
