@@ -79,7 +79,6 @@ public class PChangeView extends JPanel{
       btnNo.setFont(new Font(getName(),3,15));
       this.add(btnNo);
       
-      
       /*//юс╫ц
       for(int i=0 ; i<5 ; i++) {
     	  
