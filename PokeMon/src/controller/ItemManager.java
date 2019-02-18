@@ -125,7 +125,9 @@ public class ItemManager {
 		if(useItem instanceof Ball) {
 			useItem = (Ball)id.getIList().get(iNo);
 			
-			id.getIList().get(iNo).setiAmount(id.getIList().get(iNo).getiAmount() - 1);
+			System.out.println(poke.getpName() + "에게 " + useItem.getiName() + "사용");
+			subInven(iNo, useItem.getiAmount());
+			//id.getIList().get(iNo).setiAmount(id.getIList().get(iNo).getiAmount() - 1);
 
 			//--------콘솔 확인
 			System.out.println();
