@@ -17,7 +17,8 @@ public class MainFrame extends JFrame{
 		int xpos = (int)(screen.getWidth() / 2 - getWidth() / 2);
 		int ypos = (int)(screen.getHeight() / 2 - getHeight() / 2);
 		this.setLocation(xpos, ypos);
-
+		this.setResizable(false);
+		
 		new StartPage(this);
 		//new Map(this);
 		this.setVisible(true);
