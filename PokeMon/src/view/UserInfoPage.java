@@ -90,7 +90,7 @@ public class UserInfoPage extends JPanel implements KeyListener{
 		
 		label.setBounds(450, 20, 200, 40);
 		
-		charactorLabel.setBounds(180, 70, 250, 400);
+		charactorLabel.setBounds(110, 150, 250, 450);
 		userNameLabel.setBounds(620, 100, 200, 120);
 		createTime.setBounds(620, 240, 300, 120);
 		playTimeLabel.setBounds(620,360,300,100);
