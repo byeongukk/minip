@@ -96,9 +96,10 @@ public class Map extends JPanel implements Runnable, KeyListener {
 
 	private int cnt; //무한 루프를 카운터 하기 위한 변수
 	private int moveStatus; //케릭터가 어디를 바라보는지 방향을 받을 변수
-	private int num = 7;
+	private int num = 99;
 	private boolean onOff;
 	private int centernum;
+	private int oh;
 	
 
 
@@ -253,14 +254,37 @@ public class Map extends JPanel implements Runnable, KeyListener {
 			break;
 		}
 		case 2 : gc.drawImage(pvp, 0, 0, 1024, 768, this); break;//SM_추가
-		case 3 : gc.drawImage(lab, 0, 0, 1024, 768, this); break;
+		case 3 : gc.drawImage(lab, 0, 0, 1024, 768, this); 
+			if(dialogOn == true) {
+				/*gc.setFont(new Font("돋움체", Font.BOLD, 30));
+				gc.setColor(Color.white);
+				gc.drawString(dialogstr, nx, ny);*/
+				switch(oh) {
+				case 1 :{
+					escCtn=1;
+					System.out.println("상점 이용");
+					y += 50;
+					//this.market = new Market(mf,m);
+					m.setVisible(false);
+					mf.add(marketView);
+					marketView.setVisible(true);
+					dialogOn = false;
+					candial = false;
+					break;
+				}
+				}
+			}
+		break;
+		
+		
 		case 4 : gc.drawImage(gym, 0, 0, 1024, 768, this); break;
 		case 5 : gc.drawImage(huntfield, 0, 0, 1024, 768, this); break;
 		case 6 : gc.drawImage(h_fire, 0, 0, 1024, 768, this); break;
 		case 7 : gc.drawImage(h_water, 0, 0, 1024, 768, this); break;
 		case 8 : gc.drawImage(h_jungle, 0, 0, 1024, 768, this); break;
-		case 99 : gc.drawImage(mainPage, 0, 0, 904, 648, this);
-		gc.drawString("게임을 시작하려면 Enter키를 누르세요!", 280, 680);break;
+		case 99 : gc.drawImage(mainPage, 0, 0, 1000, 720, this);
+		gc.setFont(new Font("바탕체", Font.BOLD, 20));
+		gc.drawString("게임을 시작하려면 Enter키를 누르세요!", 280, 300);break;
 
 
 		}
@@ -656,7 +680,25 @@ public class Map extends JPanel implements Runnable, KeyListener {
 			}
 		}
 
-
+		//연구소 오브젝트 ----------------------------------
+		if(num == 3) {
+			Rectangle docOh = new Rectangle(100, 450, 150, 80);
+			if(moveStatus == 0 && rect.intersects(docOh)) {
+				candial = true;
+				oh = 1;
+			}
+			Rectangle l_wall = new Rectangle(50, 30, 670, 420);
+			if(rect.intersects(l_wall)){canMove();}
+			Rectangle l_wall2 = new Rectangle(250, 455, 470, 120);
+			if(rect.intersects(l_wall2)){canMove();}
+			Rectangle l_wall3 = new Rectangle(50, 451, 50, 220);
+			if(rect.intersects(l_wall3)){canMove();}
+			Rectangle l_wall4 = new Rectangle(50, 690, 450, 180);
+			if(rect.intersects(l_wall4)){canMove();}
+			Rectangle l_wall5 = new Rectangle(570, 690, 440, 180);
+			if(rect.intersects(l_wall5)){canMove();}
+		}
+		
 
 
 		//체육관 블락 수정 필요, 임시임------------------------------------------------
