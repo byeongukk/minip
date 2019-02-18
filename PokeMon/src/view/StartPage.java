@@ -85,9 +85,9 @@ public class StartPage extends JPanel{
 		nextPage.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				 
-				FadeOut fade = new FadeOut(mf);
+				/*FadeOut fade = new FadeOut(mf);
 				mf.add(fade);
-				mf.setComponentZOrder(fade, 0);
+				mf.setComponentZOrder(fade, 0);*/
 				
 
 				UserDao ud = new UserDao("이름이름");
