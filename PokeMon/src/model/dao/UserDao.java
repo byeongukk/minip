@@ -62,7 +62,8 @@ public class UserDao{
 	      user.getUp_list().get(0).setpSkill(skillList);
 	      
 	   userList.add(user);
-	   
+	   user.getUi_list().add(new ItemDao().getIList().get(0));
+	   user.getUi_list().get(0).setiAmount(10);
 	   user.getUp_list().add(pd.getpList().get(5));
 	   user.getUp_list().get(1).setpHp(30);
 	   user.getUp_list().get(1).setGrade(2);

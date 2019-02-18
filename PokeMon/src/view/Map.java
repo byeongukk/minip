@@ -139,6 +139,14 @@ public class Map extends JPanel implements Runnable, KeyListener {
 
 	}
 
+	public BattlePage getBp() {
+		return bp;
+	}
+
+	public void setBp(BattlePage bp) {
+		this.bp = bp;
+	}
+
 	public void init(){
 		x = 500;
 		y = 600;
