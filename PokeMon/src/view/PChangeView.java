@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
@@ -42,11 +43,11 @@ public class PChangeView extends JPanel{
    private Pokemon totalPoke;
    private Pokemon myPoke;
    
-   private JButton error = new JButton("교체할 포켓몬이 없습니다.");
+   /*private JButton error = new JButton("교체할 포켓몬이 없습니다.");
    private Dialog errorDialog = new Dialog(mf);
    
    private JButton changeP = new JButton("교체가 성공적으로 되었습니다.");
-   private Dialog changePDialog = new Dialog(mf); 
+   private Dialog changePDialog = new Dialog(mf);*/ 
    
    public PChangeView(MainFrame mf, JPanel oldPage, User user) {
      mc = new MCManager(user);
@@ -79,11 +80,12 @@ public class PChangeView extends JPanel{
       btnNo.setFont(new Font(getName(),3,15));
       this.add(btnNo);
       
-      /*//임시
+      
+      //임시
       for(int i=0 ; i<5 ; i++) {
     	  
     	  user.getTp_list().add(i, pd.getpList().get(i));
-      }*/
+      }
       
       JLabel totalName = new JLabel("잡은 포켓몬 목록");
       totalName.setBounds(250, 238, 100, 30);
@@ -211,17 +213,21 @@ public class PChangeView extends JPanel{
          public void mousePressed(MouseEvent e) {
             if(myPoke!=null&&totalPoke!=null) {
             	mc.usepChange(myPoke, totalPoke);
-            	changePDialog.setBounds(660, 450, 230, 100);
+            	/*changePDialog.setBounds(660, 450, 230, 100);
             	changePDialog.add(changeP);         
-            	changePDialog.setVisible(true);
+            	changePDialog.setVisible(true);*/
+            	JOptionPane.showMessageDialog(null, "교체가 성공적으로 진행되었습니다.", "교체성공", JOptionPane.WARNING_MESSAGE);
+            	mf.remove(pChangeView);
+    			centerView.setVisible(true);
+    			mf.requestFocus();
             }
             else {
             	try {
             		
-            		errorDialog.setBounds(660, 450, 230, 100);
-            		errorDialog.add(error);         
-            		errorDialog.setVisible(true);
-            		System.out.println("웅");
+            		JOptionPane.showMessageDialog(null, "교체할 포켓몬이 없습니다.", "교체실패", JOptionPane.WARNING_MESSAGE);
+                	mf.remove(pChangeView);
+        			centerView.setVisible(true);
+        			mf.requestFocus();
             	}catch(NullPointerException x) {
             		System.out.println("즐");
             	}
@@ -230,7 +236,7 @@ public class PChangeView extends JPanel{
             
          }
       });
-      settingButton(error);
+      /*settingButton(error);
       error.addMouseListener(new MouseAdapter() {
          @Override
          public void mouseClicked(MouseEvent e) {
@@ -262,7 +268,7 @@ public class PChangeView extends JPanel{
               //m.setEscCtn(0);
          }
       });
-      this.add(changeP);
+      this.add(changeP);*/
       
       btnNo.addMouseListener(new MouseAdapter() {
          @Override
