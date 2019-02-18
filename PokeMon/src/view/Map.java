@@ -33,11 +33,11 @@ public class Map extends JPanel implements Runnable, KeyListener {
 
 	int port = 8600;
 
-	
+
 	private MainFrame mf;
 	private Map m;
 	private PInfoPage pip;
-	 private UserMenuPage ump; 
+	private UserMenuPage ump; 
 	private MarketView marketView;//SM_추가
 	private CenterView centerView;
 	private LabPage lp;
@@ -98,11 +98,12 @@ public class Map extends JPanel implements Runnable, KeyListener {
 
 	private int cnt; //무한 루프를 카운터 하기 위한 변수
 	private int moveStatus; //케릭터가 어디를 바라보는지 방향을 받을 변수
-	private int num = 99;
+	private int num = 0;
 	private boolean onOff;
 	private int centernum;
 	private int oh;
 	private int ohOn = 0;
+	Music m_vill = new Music("village.mp3", false);
 	
 
 
@@ -124,6 +125,7 @@ public class Map extends JPanel implements Runnable, KeyListener {
 		this.marketView=new MarketView(mf,m,user);//SM_추가
 		this.centerView = new CenterView(mf, m,user);
 		this.lp = new LabPage(mf, this, user); 
+		lp.setVisible(false);
 
 		onOff = true;
 
@@ -131,11 +133,12 @@ public class Map extends JPanel implements Runnable, KeyListener {
 		this.setSize(1024,768);
 		this.setBounds(0,0,1024,768);
 		init();
-		Music m_vill = new Music("village.mp3", true);
+		
 		m_vill.start();
-		
+
+
 		start();
-		
+
 		Dimension screen = tk.getScreenSize();
 
 		int xpos = (int)(screen.getWidth() / 2 - getWidth() / 2);
@@ -260,7 +263,7 @@ public class Map extends JPanel implements Runnable, KeyListener {
 			break;
 		}
 		case 2 : gc.drawImage(pvp, 0, 0, 1024, 768, this); break;//SM_추가
-		case 3 : gc.drawImage(lab, 0, 0, 1024, 768, this); 
+		case 3 : gc.drawImage(lab, 0, 0, 1024, 768, this); {
 			if(dialogOn == true) {
 				/*gc.setFont(new Font("돋움체", Font.BOLD, 30));
 				gc.setColor(Color.white);
@@ -272,20 +275,21 @@ public class Map extends JPanel implements Runnable, KeyListener {
 					y += 50;
 					//this.market = new Market(mf,m);
 					if(ohOn == 0) {
-					m.setVisible(false);
-					mf.add(lp);
-					lp.setVisible(true);
-					dialogOn = false;
-					candial = false;
-					ohOn = 1;
+						m.setVisible(false);
+						mf.add(lp);
+						lp.setVisible(true);
+						dialogOn = false;
+						candial = false;
+						ohOn = 1;
 					}
 					break;
 				}
 				}
 			}
-		break;
-		
-		
+			break;
+		}
+
+
 		case 4 : gc.drawImage(gym, 0, 0, 1024, 768, this); break;
 		case 5 : gc.drawImage(huntfield, 0, 0, 1024, 768, this); break;
 		case 6 : gc.drawImage(h_fire, 0, 0, 1024, 768, this); break;
@@ -707,7 +711,7 @@ public class Map extends JPanel implements Runnable, KeyListener {
 			Rectangle l_wall5 = new Rectangle(570, 690, 440, 180);
 			if(rect.intersects(l_wall5)){canMove();}
 		}
-		
+
 
 
 		//체육관 블락 수정 필요, 임시임------------------------------------------------
@@ -756,13 +760,18 @@ public class Map extends JPanel implements Runnable, KeyListener {
 			if(rect.intersects(h_wrange)){
 				int hrand = new Random().nextInt(100);
 				if(hrand == 30) {
+					m_vill.stop();
+					m_vill = new Music("battle.mp3", false);
+					m_vill.start();
+					
 					bm.randomP(user);
+					bm.enHP(bp, user);
 					cantmove = true;
 					System.out.println("배틀페이지");
 					mf.add(bp);
 					m.setVisible(false);
 					//이미지가 늦게뜨는점 고치도록 해야함
-					
+
 					bp.setVisible(true);
 
 				}
@@ -790,7 +799,7 @@ public class Map extends JPanel implements Runnable, KeyListener {
 			if(rect.intersects(h_wrange1)){
 				int hrand = new Random().nextInt(100);
 				if(hrand == 30) {
-					
+
 					cantmove = true;
 					System.out.println("배틀페이지");
 					m.setVisible(false);
@@ -819,7 +828,7 @@ public class Map extends JPanel implements Runnable, KeyListener {
 			//x = 50;
 			//y = 245;
 			ctn += 1 ;
-			
+
 			System.out.println("Npc배틀페이지");
 			m.setVisible(false);
 			mf.add(bp);
@@ -926,20 +935,20 @@ public class Map extends JPanel implements Runnable, KeyListener {
 				Scanner sc = new Scanner(System.in);
 
 				//do {
-					/*System.out.println("대화 입력: ");
+				/*System.out.println("대화 입력: ");
 					String message = sc.nextLine();*/
-					int netx = x;
-					int nety = y;
-					pw.println("x : " + x + " , y : " + y);
-					pw.flush();
+				int netx = x;
+				int nety = y;
+				pw.println("x : " + x + " , y : " + y);
+				pw.flush();
 
-					/*if(message.equals("exit")) {
+				/*if(message.equals("exit")) {
 						break;
 					}
-*/
-					String recieveMessage = br.readLine();
-					System.out.println(recieveMessage);
-					sc.nextLine();					
+				 */
+				String recieveMessage = br.readLine();
+				System.out.println(recieveMessage);
+				sc.nextLine();					
 
 
 				//}while(true);
