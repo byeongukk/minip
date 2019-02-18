@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 
 import controller.BattleManager;
 import model.vo.User;
+import music.Music;
 
 
 public class Map extends JPanel implements Runnable, KeyListener {
@@ -38,7 +39,7 @@ public class Map extends JPanel implements Runnable, KeyListener {
 	private PInfoPage pip;
 	 private UserMenuPage ump; 
 	private MarketView marketView;//SM_추가
-	private CenterView centerView;
+	private RecoveryView recoveryView;
 	private LabPage lp;
 	private int movementSP = 3;
 	private BattleManager bm = new BattleManager();
@@ -101,7 +102,7 @@ public class Map extends JPanel implements Runnable, KeyListener {
 	private boolean onOff;
 	private int centernum;
 	private int oh;
-	private int ohOn;
+	private int ohOn = 0;
 	
 
 
@@ -121,7 +122,8 @@ public class Map extends JPanel implements Runnable, KeyListener {
 		this.bp = new BattlePage(mf, m,user);   //BattlePage 추가
 
 		this.marketView=new MarketView(mf,m,user);//SM_추가
-		this.centerView = new CenterView(mf, m,user);
+		this.recoveryView = new CenterView(mf, m,user);
+		this.lp = new LabPage(mf, this, user); 
 
 		onOff = true;
 
@@ -129,6 +131,8 @@ public class Map extends JPanel implements Runnable, KeyListener {
 		this.setSize(1024,768);
 		this.setBounds(0,0,1024,768);
 		init();
+		Music m_vill = new Music("village.mp3", true);
+		m_vill.start();
 		
 		start();
 		
@@ -243,8 +247,8 @@ public class Map extends JPanel implements Runnable, KeyListener {
 					y += 50;
 					//this.market = new Market(mf,m);
 					m.setVisible(false);
-					mf.add(centerView);
-					centerView.setVisible(true);
+					mf.add(recoveryView);
+					recoveryView.setVisible(true);
 					dialogOn = false;
 					candial = false;
 					break;
